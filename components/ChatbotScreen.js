@@ -1,28 +1,145 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { COLORS } from '../constants/colors';
-import { STRINGS } from '../constants/strings';
-import { FONTS } from '../constants/fonts';
-import { SIZES } from '../constants/sizes';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-const ChatbotScreen = () => (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: COLORS.background }}>
-    <Text style={{ fontSize: FONTS.sizeLarge, color: COLORS.text, fontWeight: 'bold' }}>
-      {STRINGS.chatbotTitle}
-    </Text>
-    <TouchableOpacity
-      style={{
-        backgroundColor: COLORS.secondary,
-        padding: SIZES.medium,
-        borderRadius: SIZES.radiusLarge,
-        marginTop: SIZES.large,
-      }}
+const ChatbotScreen = () => {
+  const [messages, setMessages] = useState([
+    { id: 1, sender: 'bot', text: 'Hi! How can I assist you today with financial advice?' },
+  ]);
+  const [inputText, setInputText] = useState('');
+
+  const sendMessage = () => {
+    if (!inputText.trim()) return;
+
+    const newMessage = { id: Date.now(), sender: 'user', text: inputText };
+    setMessages([...messages, newMessage]);
+
+    // Simulate a bot response
+    setTimeout(() => {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { id: Date.now() + 1, sender: 'bot', text: "That's a great question! Let me explain." },
+      ]);
+    }, 1000);
+
+    setInputText('');
+  };
+
+  const renderMessage = ({ item }) => (
+    <View
+      style={[
+        styles.messageContainer,
+        item.sender === 'bot' ? styles.botMessage : styles.userMessage,
+      ]}
     >
-      <Text style={{ color: COLORS.white, fontSize: FONTS.sizeMedium }}>
-        Start Chat with AI
-      </Text>
-    </TouchableOpacity>
-  </View>
-);
+      <Text style={styles.messageText}>{item.text}</Text>
+    </View>
+  );
+
+  return (
+    <View style={styles.background}>
+      {/* Overlay to cover top icons */}
+      <View style={styles.headerOverlay}>
+        <Text style={styles.headerText}>AI Financial Chatbot</Text>
+      </View>
+
+      {/* Chatbot Messages */}
+      <FlatList
+        data={messages}
+        renderItem={renderMessage}
+        keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={styles.chatContainer}
+        inverted
+      />
+
+      {/* Input Area */}
+      <View style={styles.inputContainer}>
+        <TouchableOpacity>
+          <Icon name="mic-outline" size={28} color="#FFC107" />
+        </TouchableOpacity>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Type your message..."
+          placeholderTextColor="#ccc"
+          value={inputText}
+          onChangeText={setInputText}
+        />
+        <TouchableOpacity onPress={sendMessage}>
+          <Icon name="send-outline" size={28} color="#FFC107" />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Icon name="attach-outline" size={28} color="#FFC107" />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    backgroundColor: '#000', // Solid black background
+  },
+  headerOverlay: {
+    height: 130, // Adjust to fit your icons
+    backgroundColor: '#FFC107',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+  },
+  headerText: {
+    color: '#000',
+    fontSize: 18,
+    paddingTop: 50,
+    fontWeight: 'bold',
+  },
+  chatContainer: {
+    padding: 10,
+    paddingTop: 20,
+  },
+  messageContainer: {
+    marginVertical: 5,
+    maxWidth: '75%',
+    padding: 10,
+    borderRadius: 15,
+  },
+  botMessage: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#FFC107',
+  },
+  userMessage: {
+    alignSelf: 'flex-end',
+    backgroundColor: '#333',
+  },
+  messageText: {
+    color: '#fff',
+    fontSize: 14,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    backgroundColor: '#1a1a1a',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+  },
+  textInput: {
+    flex: 1,
+    height: 40,
+    backgroundColor: '#333',
+    borderRadius: 20,
+    paddingHorizontal: 15,
+    color: '#fff',
+    marginHorizontal: 10,
+  },
+});
 
 export default ChatbotScreen;
