@@ -7,7 +7,7 @@ const ProfileScreen = () => {
   // Sample user data for illustration
   const user = {
     name: 'Kaira Sharma',
-    email: 'kaira.sharma@example.com',
+    email: 'kaira.sharma@ey.com',
     profileImage: require('../assets/user1.jpg'), // Placeholder image
     financialOverview: {
       totalPortfolioValue: 125000, // in local currency

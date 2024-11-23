@@ -1,165 +1,298 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Image
+} from 'react-native';
+import { LineChart } from 'react-native-chart-kit'; // You can use other chart libraries based on your preference
 
-// Localized Solutions Section
-const LocalizedSolutions = () => (
-  <View style={styles.section}>
-    <Text style={styles.sectionTitle}>Localized Solutions</Text>
-    <Text style={styles.sectionText}>
-      Highlight region-specific financial opportunities such as government subsidies, local co-ops, or dairy cooperatives.
-    </Text>
-  </View>
-);
-
-// Micro-Investment Platform Section
-const MicroInvestmentPlatform = () => (
-  <View style={styles.section}>
-    <Text style={styles.sectionTitle}>Micro-Investment Platform</Text>
-    <Text style={styles.sectionText}>
-      Allow small, recurring investments (as low as ₹10–₹50) into secure, low-risk schemes like savings groups or mutual funds.
-    </Text>
-    <Text style={styles.sectionText}>
-      Simplified dashboards with pictorial representations of returns and growth.
-    </Text>
-  </View>
-);
-
-// Financial Product Marketplace Section
-const FinancialProductMarketplace = () => (
-  <View style={styles.section}>
-    <Text style={styles.sectionTitle}>Financial Product Marketplace</Text>
-    <Text style={styles.sectionText}>
-      Compare and recommend suitable financial products (e.g., micro-loans, insurance, savings accounts).
-    </Text>
-    <Text style={styles.sectionText}>
-      Show personalized suggestions based on income, goals, and risk appetite.
-    </Text>
-  </View>
-);
-
-export default function MarketplaceScreen() {
+const InvestAndMarketplaceScreen = () => {
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.header}>
-        {/* Local image used here */}
-        <Image 
-          source={require('../assets/Ey.jpg')} // Replace with the path to your logo image
-          style={styles.logo} 
+    <View style={styles.container}>
+      {/* Logo at the top */}
+      <View style={styles.logoContainer}>
+        <Image
+          source={require('../assets/Ey.jpg')} // Adjust the path based on your folder structure
+          style={styles.logo}
         />
       </View>
-      <LocalizedSolutions />
-      <MicroInvestmentPlatform />
-      <FinancialProductMarketplace />
-    </ScrollView>
-  );
-}
 
-// Styling with the Black and Yellow EY theme colors
+      <ScrollView>
+        {/* Micro-Investment Platform */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Micro-Investment Platform</Text>
+          <Text style={styles.sectionDescription}>
+            Track your investment progress and performance.
+          </Text>
+
+          {/* Investment Plan Graphs */}
+          <View style={styles.graphsContainer}>
+            <View style={styles.graphContainer}>
+              <Text style={styles.graphTitle}>Investment Growth</Text>
+              <LineChart
+                data={{
+                  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                  datasets: [
+                    {
+                      data: [10, 25, 35, 40, 45],
+                    },
+                  ],
+                }}
+                width={200}
+                height={150}
+                chartConfig={{
+                  backgroundColor: '#1a1a1a',
+                  backgroundGradientFrom: '#1a1a1a',
+                  backgroundGradientTo: '#1a1a1a',
+                  color: (opacity = 1) => `rgba(255, 193, 7, ${opacity})`,
+                  strokeWidth: 2,
+                  barPercentage: 0.5,
+                }}
+              />
+            </View>
+            <View style={styles.graphContainer}>
+              <Text style={styles.graphTitle}>Savings Increase</Text>
+              <LineChart
+                data={{
+                  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                  datasets: [
+                    {
+                      data: [0, 10, 15, 25, 35],
+                    },
+                  ],
+                }}
+                width={200}
+                height={150}
+                chartConfig={{
+                  backgroundColor: '#1a1a1a',
+                  backgroundGradientFrom: '#1a1a1a',
+                  backgroundGradientTo: '#1a1a1a',
+                  color: (opacity = 1) => `rgba(255, 193, 7, ${opacity})`,
+                  strokeWidth: 2,
+                  barPercentage: 0.5,
+                }}
+              />
+            </View>
+            <View style={styles.graphContainer}>
+              <Text style={styles.graphTitle}>Loss / Hike Percentage</Text>
+              <LineChart
+                data={{
+                  labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                  datasets: [
+                    {
+                      data: [2, 5, 7, 4],
+                    },
+                  ],
+                }}
+                width={200}
+                height={150}
+                chartConfig={{
+                  backgroundColor: '#1a1a1a',
+                  backgroundGradientFrom: '#1a1a1a',
+                  backgroundGradientTo: '#1a1a1a',
+                  color: (opacity = 1) => `rgba(255, 193, 7, ${opacity})`,
+                  strokeWidth: 2,
+                  barPercentage: 0.5,
+                }}
+              />
+            </View>
+          </View>
+
+          {/* Stats */}
+          <View style={styles.statsContainer}>
+            <View style={styles.statBox}>
+              <Text style={styles.statTitle}>Increase</Text>
+              <Text style={styles.statValue}>₹1,000</Text>
+            </View>
+            <View style={styles.statBox}>
+              <Text style={styles.statTitle}>Savings</Text>
+              <Text style={styles.statValue}>₹8,500</Text>
+            </View>
+            <View style={styles.statBox}>
+              <Text style={styles.statTitle}>Output</Text>
+              <Text style={[styles.statValue, styles.lossstat]}>+5%</Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Localized Solutions */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Localized Solutions</Text>
+          <Text style={styles.sectionDescription}>
+            Explore region-specific financial opportunities.
+          </Text>
+
+          {/* Example Solutions */}
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>Government Subsidy: Rural Housing</Text>
+            <Text style={styles.cardDescription}>
+              Get up to ₹2,50,000 for building or renovating your home.
+            </Text>
+            <TouchableOpacity style={styles.applyButton}>
+              <Text style={styles.applyButtonText}>Apply Now</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>Farmer Loan Assistance</Text>
+            <Text style={styles.cardDescription}>
+              Loans starting at ₹10,000 with low-interest rates for farming expenses.
+            </Text>
+            <TouchableOpacity style={styles.applyButton}>
+              <Text style={styles.applyButtonText}>Apply Now</Text>
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity style={styles.viewMoreButton}>
+            <Text style={styles.viewMoreText}>View More</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Financial Products */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Financial Products</Text>
+
+          {/* List of Financial Products */}
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>Micro-Loan: Women's Self-Help Group</Text>
+            <Text style={styles.cardDescription}>
+              Low-interest loans starting at ₹500 for small businesses and home needs.
+            </Text>
+            <TouchableOpacity style={styles.applyButton}>
+              <Text style={styles.applyButtonText}>Apply Now</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>Savings Account: Zero Balance</Text>
+            <Text style={styles.cardDescription}>
+              Open a savings account with no minimum balance requirement and attractive interest rates.
+            </Text>
+            <TouchableOpacity style={styles.applyButton}>
+              <Text style={styles.applyButtonText}>Apply Now</Text>
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity style={styles.viewMoreButton}>
+            <Text style={styles.viewMoreText}>View More</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    backgroundColor: '#000', // EY black background
-    padding: 15,
-    paddingTop: 80, // Adjusted padding to make space for logo
+    flex: 1,
+    paddingTop: 60,
+    backgroundColor: '#000',
   },
-  header: {
-    alignItems: 'center', // Center the logo
+  logoContainer: {
+    alignItems: 'center',
     marginBottom: 20,
   },
   logo: {
-    width: 75, // Adjust logo width
-    height: 40, // Adjust logo height
-    borderRadius: 20,
+    width: 120,  // Adjust the width as per your logo size
+    height: 60, // Adjust the height as per your logo size
+    resizeMode: 'contain',
   },
   section: {
-    marginBottom: 20,
-    backgroundColor: '#333', // Dark section background for contrast
+    margin: 15,
+    backgroundColor: '#1a1a1a',
+    borderRadius: 10,
     padding: 15,
-    borderRadius: 8,
-    elevation: 3, // Shadow effect for Android
-    shadowColor: '#000', // Shadow effect for iOS
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
   },
   sectionTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#FFC107', // EY yellow color for the section title
-    marginBottom: 10,
-  },
-  sectionText: {
-    fontSize: 16,
-    color: '#E0E0E0', // Light gray text color for readability
-    marginBottom: 8,
-  },
-  postButton: {
-    backgroundColor: '#FFC107', // EY yellow color for buttons
-    padding: 12,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  postButtonText: {
-    color: '#000', // Black text for better visibility on yellow
-    fontSize: 16,
-  },
-  feed: {
-    marginTop: 20,
-  },
-  post: {
-    backgroundColor: '#222', // Dark background for individual posts
-    padding: 15,
-    marginBottom: 20,
-    borderRadius: 8,
-  },
-  postHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  userImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 10,
-  },
-  postUserDetails: {
-    flex: 1,
-  },
-  postName: {
-    color: '#FFC107', // EY yellow color for user name
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#FFC107',
+    marginBottom: 5,
   },
-  postDate: {
-    color: '#888', // Light gray color for post date
-    fontSize: 12,
+  sectionDescription: {
+    fontSize: 14,
+    color: '#ccc',
+    marginBottom: 10,
   },
-  postText: {
-    color: '#E0E0E0', // Light gray text color for the post content
-    fontSize: 16,
-    marginVertical: 10,
-  },
-  postImage: {
-    width: '100%',
-    height: 250,
-    borderRadius: 10,
-    marginVertical: 10,
-    resizeMode: 'cover',
-  },
-  actions: {
+  graphsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
+    marginBottom: 15,
+  },
+  graphContainer: {
+    width: '30%',
+  },
+  graphTitle: {
+    textAlign: 'center',
+    color: '#FFC107',
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  statsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 10,
   },
-  actionButton: {
-    flexDirection: 'row',
+  statBox: {
+    backgroundColor: '#333',
+    padding: 10,
+    borderRadius: 10,
+    width: '30%',
     alignItems: 'center',
   },
-  actionText: {
-    color: '#FFC107', // Yellow color for action text
+  statTitle: {
+    fontSize: 12,
+    color: '#ccc',
+  },
+  statValue: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FFC107',
+  },
+  lossstat: {
+    color: 'green',
+  },
+  card: {
+    backgroundColor: '#333',
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 10,
+  },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#FFC107',
+  },
+  cardDescription: {
     fontSize: 14,
-    marginLeft: 5,
+    color: '#fff',
+    marginTop: 5,
+  },
+  applyButton: {
+    backgroundColor: '#FFC107',
+    paddingVertical: 8,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  applyButtonText: {
+    textAlign: 'center',
+    color: '#000',
+    fontWeight: 'bold',
+  },
+  viewMoreButton: {
+    marginTop: 10,
+    backgroundColor: '#FFC107',
+    paddingVertical: 8,
+    borderRadius: 5,
+  },
+  viewMoreText: {
+    textAlign: 'center',
+    color: '#000',
+    fontWeight: 'bold',
   },
 });
+
+export default InvestAndMarketplaceScreen;
