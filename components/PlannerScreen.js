@@ -5,8 +5,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const PlannerScreen = () => {
   // Sample data
   const financialData = {
-    savings: 300000, // Current savings
-    expectedSavings: 500000, // Savings goal for the year
+    savings: 150000, // Current savings
+    expectedSavings: 300000,
+    goalSavings:500000, // Savings goal for the year
     expensesByCategory: require('../assets/savings.jpg'), // Local image for graph
     shortfallPercentage: ((500000 - 300000) / 500000) * 100, // Percentage shortfall
     financialGoals: [
@@ -71,7 +72,7 @@ const PlannerScreen = () => {
           </View>
           <View style={styles.savingsBlock}>
             <Text style={styles.savingsLabel}>Savings Goal</Text>
-            <Text style={styles.savingsValue}>₹{financialData.expectedSavings}</Text>
+            <Text style={styles.savingsValue}>₹{financialData.goalSavings}</Text>
           </View>
         </View>
       </View>
