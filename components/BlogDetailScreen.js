@@ -1,26 +1,31 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 
 const BlogDetailScreen = ({ route, navigation }) => {
-  const { blog } = route.params; // Get the blog object passed via navigation
+  const { blog } = route.params; 
 
   return (
     <ScrollView style={styles.container}>
-      {/* EY Logo */}
       <Image source={require('../assets/Ey.jpg')} style={styles.eyLogo} />
-
-      {/* Blog Title */}
       <Text style={styles.blogTitle}>{blog.title}</Text>
-
-      {/* Blog Content */}
-      <Text style={styles.blogContent}>{blog.content}</Text>
-
-      {/* Blog Images */}
-      {blog.images && blog.images.map((image, index) => (
-        <Image key={index} source={{ uri: image }} style={styles.blogImage} />
-      ))}
-
-      {/* Back Button */}
+      {blog.content.map((item, index) => {
+        if (item.type === 'text') {
+          return (
+            <Text key={index} style={styles.blogText}>
+              {item.value}
+            </Text>
+          );
+        } else if (item.type === 'image') {
+          return (
+            <Image
+              key={index}
+              source={item.value}
+              style={styles.blogImage}
+            />
+          );
+        }
+        return null;
+      })}
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
         <Text style={styles.backButtonText}>Go Back</Text>
       </TouchableOpacity>
@@ -31,45 +36,45 @@ const BlogDetailScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000', // Black background for EY theme
+    backgroundColor: '#000', 
     padding: 15,
-    paddingTop: 70, // Space for the logo at the top
+    paddingTop: 70,
   },
   eyLogo: {
-    width: 120, // Adjust based on the actual size of your logo
-    height: 60,  // Adjust based on the actual size of your logo
+    width: 120,
+    height: 60,
     resizeMode: 'contain',
-    alignSelf: 'center', // Center the logo
-    marginBottom: 20, // Add space between the logo and the content
+    alignSelf: 'center',
+    marginBottom: 20,
   },
   blogTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#FFC107', // EY Yellow
-    marginBottom: 10,
+    color: '#FFC107', 
+    marginBottom: 15,
   },
-  blogContent: {
+  blogText: {
     fontSize: 16,
-    color: '#E0E0E0', // Light gray text for content
+    color: '#E0E0E0', 
     marginVertical: 10,
     lineHeight: 22,
   },
   blogImage: {
     width: '100%',
     height: 200,
-    marginVertical: 10,
+    marginVertical: 15,
     borderRadius: 10,
     resizeMode: 'cover',
   },
   backButton: {
-    backgroundColor: '#FFC107', // EY Yellow
+    backgroundColor: '#FFC107', 
     padding: 12,
     borderRadius: 5,
     alignItems: 'center',
     marginTop: 20,
   },
   backButtonText: {
-    color: '#000', // Black text for contrast
+    color: '#000', 
     fontSize: 16,
   },
 });

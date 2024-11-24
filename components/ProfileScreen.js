@@ -1,16 +1,14 @@
-// components/ProfileScreen.js
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const ProfileScreen = () => {
-  // Sample user data for illustration
   const user = {
     name: 'Kaira Sharma',
     email: 'kaira.sharma@ey.com',
-    profileImage: require('../assets/user1.jpg'), // Placeholder image
+    profileImage: require('../assets/user1.jpg'), 
     financialOverview: {
-      totalPortfolioValue: 125000, // in local currency
+      totalPortfolioValue: 125000, 
       totalInvestments: 75000,
       totalSavings: 50000,
       totalDebts: 10000,
@@ -19,12 +17,10 @@ const ProfileScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-      {/* EY Logo at the top */}
       <View style={styles.logoContainer}>
         <Image source={require('../assets/Ey.jpg')} style={styles.eyLogo} />
       </View>
 
-      {/* Profile Section */}
       <View style={styles.profileSection}>
         <Image source={user.profileImage} style={styles.profileImage} />
         <View style={styles.profileInfo}>
@@ -33,7 +29,6 @@ const ProfileScreen = () => {
         </View>
       </View>
 
-      {/* Financial Overview */}
       <View style={styles.overviewSection}>
         <Text style={styles.sectionTitle}>Financial Overview</Text>
         <View style={styles.overviewCard}>
@@ -56,7 +51,6 @@ const ProfileScreen = () => {
         </View>
       </View>
 
-      {/* Financial Activity */}
       <View style={styles.activitySection}>
         <Text style={styles.sectionTitle}>Recent Activity</Text>
         <View style={styles.activityCard}>
@@ -74,13 +68,11 @@ const ProfileScreen = () => {
           </View>
         </View>
 
-        {/* View More Button */}
         <TouchableOpacity style={styles.viewMoreButton}>
           <Text style={styles.viewMoreText}>View More</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Quick Access Features */}
       <View style={styles.quickAccessSection}>
         <Text style={styles.sectionTitle}>Quick Access</Text>
         <View style={styles.quickAccessItems}>
@@ -99,7 +91,6 @@ const ProfileScreen = () => {
         </View>
       </View>
 
-      {/* Settings */}
       <View style={styles.settingsSection}>
         <Text style={styles.sectionTitle}>Settings</Text>
         <TouchableOpacity style={styles.settingsItem}>
@@ -118,7 +109,7 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000', // EY Black background
+    backgroundColor: '#000', 
     padding: 15,
     paddingTop:70,
   },
@@ -138,7 +129,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1a1a1a',
     padding: 15,
     borderRadius: 12,
-    elevation: 5, // Shadow
+    elevation: 5, 
   },
   profileImage: {
     width: 70,

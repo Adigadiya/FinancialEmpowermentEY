@@ -4,7 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'; 
 
-// Importing Screens
 import CommunityScreen from './components/CommunityScreen';
 import MarketplaceScreen from './components/MarketplaceScreen';
 import PlannerScreen from './components/PlannerScreen';
@@ -13,7 +12,6 @@ import ProfileScreen from './components/ProfileScreen';
 import BlogDetailScreen from './components/BlogDetailScreen';
 import AlertsScreen from './components/AlertsScreen'; 
 import ChatbotScreen from './components/ChatbotScreen';
-// Screens for Top Buttons
 
 const Stack = createNativeStackNavigator();
 
@@ -32,7 +30,6 @@ const LearnNavigator = () => (
   </Stack.Navigator>
 );
 
-// Tab Configurations
 const tabs = [
   { name: 'Community', label: 'Community', iconName: 'people-outline' },
   { name: 'Marketplace', label: 'Marketplace', iconName: 'cart-outline' },
@@ -41,16 +38,13 @@ const tabs = [
   { name: 'Profile', label: 'Profile', iconName: 'person-outline' },
 ];
 
-// Main App Component
 export default function App() {
-  const [currentScreen, setCurrentScreen] = useState('Community'); // Active bottom tab
-  const [topScreen, setTopScreen] = useState(null); // Active top button screen
+  const [currentScreen, setCurrentScreen] = useState('Community'); 
+  const [topScreen, setTopScreen] = useState(null); 
 
   const renderScreen = () => {
     if (topScreen === 'Alerts') return <AlertsScreen />;
     if (topScreen === 'Chatbot') return <ChatbotScreen />;
-
-    // Render the current bottom tab screen
     switch (currentScreen) {
       case 'Community':
         return <CommunityScreen />;
@@ -70,10 +64,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <View style={{ flex: 1 }}>
-        {/* Render the current screen */}
         {renderScreen()}
-
-        {/* Top Buttons */}
         <View style={styles.topButtons}>
           <TouchableOpacity
             style={styles.alertButton}
@@ -88,19 +79,17 @@ export default function App() {
             <Icon name="chatbubbles-outline" size={28} color="#fff" />
           </TouchableOpacity>
         </View>
-
-        {/* Bottom Navigation */}
         <View style={styles.bottomNav}>
           {tabs.map((tab) => (
             <TouchableOpacity
               key={tab.name}
               style={[
                 styles.navButton,
-                currentScreen === tab.name && styles.activeTab, // Highlight active tab
+                currentScreen === tab.name && styles.activeTab, 
               ]}
               onPress={() => {
                 setCurrentScreen(tab.name);
-                setTopScreen(null); // Close top button screens when switching tabs
+                setTopScreen(null); 
               }}
             >
               <Icon
@@ -164,9 +153,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     height: 60,
-    backgroundColor: '#000', // EY Black background
-    borderTopWidth: 0.5, // Thinner line for a more subtle look
-    borderTopColor: '#FFC107', // EY Yellow line for contrast
+    backgroundColor: '#000', 
+    borderTopWidth: 0.5, 
+    borderTopColor: '#FFC107', 
   },
   navButton: {
     flex: 1,
@@ -176,11 +165,11 @@ const styles = StyleSheet.create({
   },
   navText: {
     fontSize: 12,
-    color: '#FFC107', // EY Yellow text color for buttons
+    color: '#FFC107', 
     marginTop: 5,
   },
   activeTab: {
-    backgroundColor: '#e7f3ff', // Light blue for active tab
+    backgroundColor: '#e7f3ff', 
   },
   activeTabText: {
     color: '#007bff',
