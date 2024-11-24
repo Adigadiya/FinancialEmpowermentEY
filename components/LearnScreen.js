@@ -1,60 +1,78 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
 
-// Sample Blog Data
+
 const blogData = [
   {
     id: '1',
-    title: 'Saving 101',
     excerpt: 'Learn the basics of saving money and building financial stability...',
-    content: 'Saving money is essential for financial security. Start by creating a budget and sticking to it. Track your expenses to identify areas where you can cut back. Consider automating your savings by setting up an automatic transfer to a separate savings account every payday. Additionally, aim to save at least 20% of your income for long-term financial goals such as retirement, home ownership, or emergencies. Remember, every small contribution adds up over time!',
+    title: 'Saving 101',
+    content: [
+      { type: 'text', value: 'Saving money is essential for financial security. Start by creating a budget and sticking to it.' },
+      { type: 'image', value: require('../assets/blog1.jpg') }, 
+      { type: 'text', value: 'Track your expenses to identify areas where you can cut back. Consider automating your savings by setting up an automatic transfer to a separate savings account every payday.' },
+      { type: 'image', value: require('../assets/blog2.jpg') }, 
+      { type: 'text', value: 'Aim to save at least 20% of your income for long-term financial goals such as retirement, home ownership, or emergencies.' },
+      { type: 'text', value: 'Remember, every small contribution adds up over time!' },
+    ],
   },
   {
     id: '2',
-    title: 'Investing Basics',
     excerpt: 'Understand how to start investing and the different investment vehicles...',
-    content: 'Investing can help grow your wealth over time by taking advantage of compound interest. Begin by understanding stocks, mutual funds, exchange-traded funds (ETFs), and bonds. Each investment option comes with different levels of risk and return. It’s important to diversify your investments to spread risk. Start small, and gradually increase your investments as you learn more about how the market works. Keep a long-term perspective to ride out market fluctuations. Don\'t forget to evaluate your risk tolerance before you start investing.',
+    title: 'Investing Basics',
+    content: [
+      { type: 'text', value: 'Investing can help grow your wealth over time by taking advantage of compound interest.' },
+      { type: 'image', value: require('../assets/blog3.jpg') }, 
+      { type: 'text', value: 'Begin by understanding stocks, mutual funds, ETFs, and bonds. Each investment option comes with different levels of risk and return.' },
+      { type: 'image', value: require('../assets/blog4.jpg') }, 
+      { type: 'text', value: 'Diversify your investments to spread risk. Start small, and gradually increase your investments as you learn more about the market.' },
+      { type: 'text', value: 'Keep a long-term perspective to ride out market fluctuations and evaluate your risk tolerance.' },
+    ],
   },
   {
     id: '3',
     title: 'Budgeting Tips',
     excerpt: 'Simple steps to manage your budget and take control of your finances...',
-    content: 'Budgeting is a key tool for financial success. It allows you to allocate money for your needs, wants, and savings. Start by tracking all your income and expenses to understand where your money is going. Categorize your spending and look for areas where you can cut back, like dining out or subscriptions you no longer need. Set clear goals for savings, such as building an emergency fund or saving for a vacation. Use tools like budgeting apps or spreadsheets to stay organized and committed. Regularly review your budget to stay on track and adjust as needed.',
+    content: [
+      { type: 'text', value: 'Budgeting is a key tool for financial success. It allows you to allocate money for your needs, wants, and savings.' },
+      { type: 'image', value: require('../assets/blog5.jpg') }, 
+      { type: 'text', value: 'Start by tracking all your income and expenses to understand where your money is going.' },
+      { type: 'image', value: require('../assets/blog6.jpg') }, 
+      { type: 'text', value: 'Set clear goals for savings, such as building an emergency fund or saving for a vacation. Use tools like budgeting apps or spreadsheets to stay organized and committed. Regularly review your budget to stay on track and adjust as needed.' },
+    ],
   },
 ];
 
-// Gamified Learning Data
 const gamifiedLearning = [
   { 
     id: '1', 
     name: 'Quiz on Budgeting', 
     type: 'quiz', 
-    image: require('../assets/game1.jpg') // Local image path
+    image: require('../assets/game1.jpg') 
   },
   { 
     id: '2', 
     name: 'Investing Puzzle Game', 
     type: 'game', 
-    image: require('../assets/game2.jpg') // Local image path
+    image: require('../assets/game2.jpg') 
   },
   { 
     id: '3', 
     name: 'Financial Goals Rewards', 
     type: 'rewards', 
-    image: require('../assets/game3.jpg') // Local image path
+    image: require('../assets/game3.jpg') 
   },
 ];
 
 const LearnScreen = ({ navigation }) => {
-  const [quizAnswer, setQuizAnswer] = useState(null); // To track selected answer
-  const [quizResult, setQuizResult] = useState(''); // To show result feedback
+  const [quizAnswer, setQuizAnswer] = useState(null); 
+  const [quizResult, setQuizResult] = useState(''); 
 
   const handleAnswer = (isCorrect) => {
     setQuizResult(isCorrect ? 'correct' : 'incorrect');
     setQuizAnswer(isCorrect ? 'correct' : 'incorrect');
   };
 
-  // Render Blog Item
   const renderBlogItem = ({ item, index }) => (
     <View>
       <View style={styles.blogBox}>
@@ -67,45 +85,44 @@ const LearnScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      {/* Insert Quiz Between Cards */}
       {index === 1 && (
         <>
-          {/* Quiz Card */}
+          
           <View style={styles.quizCard}>
             <Text style={styles.quizQuestion}>What is the best strategy for saving for retirement?</Text>
 
-            {/* Display Feedback */}
+          
             {quizResult && (
               <Text style={[styles.feedbackText, quizResult === 'correct' ? styles.correct : styles.incorrect]}>
                 {quizResult === 'correct' ? 'Correct!' : 'Wrong!'}
               </Text>
             )}
 
-            {/* Quiz Options */}
+           
             <TouchableOpacity
               style={styles.quizButton}
-              onPress={() => handleAnswer(true)} // Correct answer
+              onPress={() => handleAnswer(true)} 
             >
               <Text style={styles.quizButtonText}>A. Start early and invest regularly</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.quizButton}
-              onPress={() => handleAnswer(false)} // Incorrect answer
+              onPress={() => handleAnswer(false)} 
             >
               <Text style={styles.quizButtonText}>B. Save a lump sum just before retirement</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.quizButton}
-              onPress={() => handleAnswer(false)} // Incorrect answer
+              onPress={() => handleAnswer(false)} 
             >
               <Text style={styles.quizButtonText}>C. Invest in high-risk stocks exclusively</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.quizButton}
-              onPress={() => handleAnswer(false)} // Incorrect answer
+              onPress={() => handleAnswer(false)} 
             >
               <Text style={styles.quizButtonText}>D. Rely solely on employer retirement plans</Text>
             </TouchableOpacity>
@@ -115,7 +132,6 @@ const LearnScreen = ({ navigation }) => {
     </View>
   );
 
-  // Render Gamified Learning Section
   const renderGamifiedLearning = () => (
     <View style={styles.gamifiedLearningContainer}>
       <Text style={styles.sectionTitle}>Gamified Learning</Text>
@@ -136,10 +152,9 @@ const LearnScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* EY Logo at the top */}
       <View style={styles.logoContainer}>
         <Image
-          source={require('../assets/Ey.jpg')} // Replace with the actual path to the logo
+          source={require('../assets/Ey.jpg')} 
           style={styles.logo}
         />
       </View>
@@ -148,7 +163,7 @@ const LearnScreen = ({ navigation }) => {
         data={blogData}
         keyExtractor={(item) => item.id}
         renderItem={renderBlogItem}
-        ListFooterComponent={renderGamifiedLearning} // Gamified Learning at the end
+        ListFooterComponent={renderGamifiedLearning} 
         contentContainerStyle={styles.blogListContainer}
       />
     </View>
@@ -158,67 +173,67 @@ const LearnScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000', // Set black background for the whole screen
-    paddingTop: 50, // Start from 140 units down from the top
-    paddingHorizontal: 15, // Horizontal padding for spacing
+    backgroundColor: '#000', 
+    paddingTop: 50, 
+    paddingHorizontal: 15, 
   },
   logoContainer: {
-    alignItems: 'center', // Center the logo horizontally
-    marginTop: 20, // Add margin to the top
+    alignItems: 'center', 
+    marginTop: 20, 
   },
   logo: {
-    width: 120, // Adjust width of the logo
-    height: 50, // Adjust height of the logo
-    resizeMode: 'contain', // Ensure the logo maintains its aspect ratio
+    width: 120, 
+    height: 50, 
+    resizeMode: 'contain', 
   },
   sectionTitle: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#FFC107', // Yellow theme for section titles
+    color: '#FFC107', 
   },
   blogBox: {
-    backgroundColor: '#1C1C1C', // Darker black box
+    backgroundColor: '#1C1C1C', 
     borderRadius: 10,
     padding: 20,
     marginVertical: 10,
     elevation: 5,
-    shadowColor: '#FFC107', // Yellow shadow
-    marginBottom: 15, // Reduce margin at the bottom of blog box to avoid extra space
+    shadowColor: '#FFC107', 
+    marginBottom: 15, 
   },
   blogTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#FFC107', // Yellow text for titles
+    color: '#FFC107', 
   },
   blogExcerpt: {
     fontSize: 14,
-    color: '#E0E0E0', // Light gray for excerpts
+    color: '#E0E0E0', 
     marginTop: 5,
   },
   viewMore: {
-    color: '#FFC107', // Yellow for links
+    color: '#FFC107', 
     fontSize: 14,
     marginTop: 10,
     fontWeight: '600',
   },
   blogListContainer: {
-    paddingBottom: 0, // No extra space at the bottom of the list
+    paddingBottom: 0, 
   },
   quizCard: {
-    backgroundColor: '#1C1C1C', // Darker black card
+    backgroundColor: '#1C1C1C', 
     borderRadius: 10,
     padding: 20,
     marginVertical: 10,
     elevation: 5,
-    shadowColor: '#FFC107', // Yellow shadow
+    shadowColor: '#FFC107',
   },
   gamifiedLearningContainer: {
     marginVertical: 15,
-    marginBottom: 20, // Add space after gamified learning section
+    marginBottom: 20, 
   },
   gameBox: {
-    backgroundColor: '#1C1C1C', // Darker black card
+    backgroundColor: '#1C1C1C', 
     padding: 15,
     borderRadius: 10,
     marginRight: 15,
@@ -229,12 +244,12 @@ const styles = StyleSheet.create({
   gameText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#FFC107', // Yellow text for game title
-    marginBottom: 10, // Add space between title and image
+    color: '#FFC107', 
+    marginBottom: 10, 
   },
   gameImage: {
-    width: 100, // Set the size of the image
-    height: 100, // Set the size of the image
+    width: 100, 
+    height: 100, 
     borderRadius: 10,
   },
   quizQuestion: {
@@ -244,7 +259,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   quizButton: {
-    backgroundColor: '#FFC107', // Yellow background for quiz options
+    backgroundColor: '#FFC107', 
     padding: 10,
     marginVertical: 5,
     borderRadius: 10,

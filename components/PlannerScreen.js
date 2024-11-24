@@ -3,13 +3,12 @@ import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'rea
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const PlannerScreen = () => {
-  // Sample data
   const financialData = {
-    savings: 150000, // Current savings
+    savings: 150000, 
     expectedSavings: 300000,
-    goalSavings:500000, // Savings goal for the year
-    expensesByCategory: require('../assets/savings.jpg'), // Local image for graph
-    shortfallPercentage: ((500000 - 300000) / 500000) * 100, // Percentage shortfall
+    goalSavings:500000, 
+    expensesByCategory: require('../assets/savings.jpg'), 
+    shortfallPercentage: ((500000 - 300000) / 500000) * 100, 
     financialGoals: [
       { name: "Children's Education", goalAmount: 200000, saved: 120000 },
       { name: 'House Loan Down Payment', goalAmount: 300000, saved: 180000 },
@@ -46,11 +45,9 @@ const PlannerScreen = () => {
     <ScrollView style={styles.container}>
       
       <View style={styles.header}>
-        {/* Local image in the header */}
         <Image source={require('../assets/Ey.jpg')} style={styles.logo} />
       </View>
 
-      {/* Savings Overview */}
       <View style={styles.savingsOverview}>
         <Text style={styles.sectionTitle}>Savings Overview</Text>
         <View style={styles.savingsRow}>
@@ -77,7 +74,6 @@ const PlannerScreen = () => {
         </View>
       </View>
 
-      {/* Financial Goals Section */}
       <View style={styles.goalSection}>
         <Text style={styles.sectionTitle}>Financial Goals</Text>
         {financialData.financialGoals.map((goal, index) => (
@@ -90,18 +86,15 @@ const PlannerScreen = () => {
           </View>
         ))}
       </View>
-     {/* Expense Tracker Section */}
 <View style={styles.expenseTrackerSection}>
   <Text style={styles.sectionTitle}>Expense Tracker</Text>
 
-  {/* Local image for chart */}
   <Image
     source={financialData.expensesByCategory}
     style={styles.chartImage}
     resizeMode="contain"
   />
 
-  {/* Action Buttons */}
   <View style={styles.expenseTrackerActions}>
     <TouchableOpacity style={styles.actionButton}>
       <Text style={styles.buttonText}>Add Expense</Text>
@@ -115,7 +108,6 @@ const PlannerScreen = () => {
   </View>
 </View>
 
-      {/* Recommendations */}
       <View style={styles.recommendationSection}>
         <Text style={styles.sectionTitle}>Recommendations</Text>
         {financialData.recommendations.map((item, index) => (
@@ -128,7 +120,6 @@ const PlannerScreen = () => {
         ))}
       </View>
 
-      {/* Alerts */}
       <View style={styles.alertsSection}>
         <Text style={styles.sectionTitle}>Alerts</Text>
         <View style={styles.alertItem}>
@@ -152,11 +143,11 @@ const styles = StyleSheet.create({
     paddingTop:70,
   },
   logo: {
-    width: 120, // Adjust the width as needed
-    height: 50, // Adjust the height as needed
-    resizeMode: 'contain', // Ensures the image scales without distortion
-    alignSelf: 'center', // Centers the logo within the header
-    marginBottom: 10, // Optional: adds space below the logo
+    width: 120,
+    height: 50, 
+    resizeMode: 'contain', 
+    alignSelf: 'center', 
+    marginBottom: 10, 
   },
   
   expenseTrackerSection: {

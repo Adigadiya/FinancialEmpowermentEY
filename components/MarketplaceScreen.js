@@ -7,28 +7,25 @@ import {
   ScrollView,
   Image
 } from 'react-native';
-import { LineChart } from 'react-native-chart-kit'; // You can use other chart libraries based on your preference
+import { LineChart } from 'react-native-chart-kit'; 
 
 const InvestAndMarketplaceScreen = () => {
   return (
     <View style={styles.container}>
-      {/* Logo at the top */}
       <View style={styles.logoContainer}>
         <Image
-          source={require('../assets/Ey.jpg')} // Adjust the path based on your folder structure
+          source={require('../assets/Ey.jpg')} 
           style={styles.logo}
         />
       </View>
 
       <ScrollView>
-        {/* Micro-Investment Platform */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Micro-Investment Platform</Text>
           <Text style={styles.sectionDescription}>
             Track your investment progress and performance.
           </Text>
 
-          {/* Investment Plan Graphs */}
           <View style={styles.graphsContainer}>
             <View style={styles.graphContainer}>
               <Text style={styles.graphTitle}>Investment Growth</Text>
@@ -101,7 +98,6 @@ const InvestAndMarketplaceScreen = () => {
             </View>
           </View>
 
-          {/* Stats */}
           <View style={styles.statsContainer}>
             <View style={styles.statBox}>
               <Text style={styles.statTitle}>Increase</Text>
@@ -118,14 +114,12 @@ const InvestAndMarketplaceScreen = () => {
           </View>
         </View>
 
-        {/* Localized Solutions */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Localized Solutions</Text>
           <Text style={styles.sectionDescription}>
             Explore region-specific financial opportunities.
           </Text>
 
-          {/* Example Solutions */}
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Government Subsidy: Rural Housing</Text>
             <Text style={styles.cardDescription}>
@@ -151,11 +145,9 @@ const InvestAndMarketplaceScreen = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Financial Products */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Financial Products</Text>
 
-          {/* List of Financial Products */}
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Micro-Loan: Women's Self-Help Group</Text>
             <Text style={styles.cardDescription}>
@@ -196,8 +188,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   logo: {
-    width: 120,  // Adjust the width as per your logo size
-    height: 60, // Adjust the height as per your logo size
+    width: 120,  
+    height: 60, 
     resizeMode: 'contain',
   },
   section: {
