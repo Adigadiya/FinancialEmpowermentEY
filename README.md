@@ -35,8 +35,7 @@ This platform is designed to empower the  by bridging the gap in financial liter
 - Interactive quizzes and rewards make financial learning engaging.  
 - Points earned for completing modules can be redeemed for benefits.  
 
-### **8. Offline and Localized Solutions**  
-- SMS-based interactions for areas with limited internet connectivity.  
+### **8. Localized Solutions** 
 - Region-specific opportunities like government subsidies and dairy cooperatives.  
 
 ---
@@ -47,18 +46,8 @@ This platform is designed to empower the  by bridging the gap in financial liter
 - **React Native**: Mobile-first design for Android and iOS.  
 - **Expo**: Quick prototyping and native performance.  
 
-### **Backend**  
-- **Firebase**: Secure authentication, cloud storage, and real-time database.  
-- **Node.js**: Scalable backend logic.  
-
 ### **AI and Machine Learning**  
 - **Hugging Face** / **OpenAI GPT**: NLP for chatbot interactions.  
-- **Azure Speech Service** / **Amazon Polly**: Speech recognition and text-to-speech for voice-based interactions.  
-- **Scikit-learn**: Personalized recommendation engines.  
-
-### **Other Tools**  
-- **AWS**: Secure cloud infrastructure.  
-- **Gamification APIs**: Interactive learning modules.  
 
 ---
 
