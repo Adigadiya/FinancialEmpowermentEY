@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  FlatList,
-} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Constants from 'expo-constants'; // Import Constants
 
 const ChatbotScreen = () => {
   const [messages, setMessages] = useState([
@@ -15,29 +9,66 @@ const ChatbotScreen = () => {
   ]);
   const [inputText, setInputText] = useState('');
 
-  const sendMessage = () => {
-    if (!inputText.trim()) return;
+  // Hardcoded Hugging Face API key for testing
+  const huggingfaceApiKey = "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"; // Replace this with your actual Hugging Face API key
 
+  if (!huggingfaceApiKey) {
+    console.error('Hugging Face API key is missing or not configured properly.');
+    return (
+      <View style={styles.background}>
+        <Text style={styles.headerText}>API Key Missing</Text>
+      </View>
+    );
+  }
+
+  const sendMessage = async () => {
+    if (!inputText.trim()) return;
+  
     const newMessage = { id: Date.now(), sender: 'user', text: inputText };
     setMessages([...messages, newMessage]);
-
-    // Simulate a bot response
-    setTimeout(() => {
+  
+    try {
+      const response = await fetch('https://api-inference.huggingface.co/models/openai-community/gpt2', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${huggingfaceApiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          inputs: inputText,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      console.log("Hugging Face Response:", data); // Log the whole response
+  
+      if (!response.ok) {
+        throw new Error('Failed to fetch from Hugging Face API');
+      }
+  
+      // Access the generated_text correctly from the response
+      const botMessage = data?.[0]?.generated_text || "Sorry, I couldn't understand your request.";
+  
       setMessages((prevMessages) => [
         ...prevMessages,
-        { id: Date.now() + 1, sender: 'bot', text: "That's a great question! Let me explain." },
+        { id: Date.now() + 1, sender: 'bot', text: botMessage },
       ]);
-    }, 1000);
-
+    } catch (error) {
+      console.error('Error calling Hugging Face API:', error);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { id: Date.now() + 1, sender: 'bot', text: 'Sorry, there was an error processing your request.' },
+      ]);
+    }
+  
     setInputText('');
   };
+  
 
   const renderMessage = ({ item }) => (
     <View
-      style={[
-        styles.messageContainer,
-        item.sender === 'bot' ? styles.botMessage : styles.userMessage,
-      ]}
+      style={[styles.messageContainer, item.sender === 'bot' ? styles.botMessage : styles.userMessage]}
     >
       <Text style={styles.messageText}>{item.text}</Text>
     </View>
