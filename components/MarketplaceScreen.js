@@ -1,290 +1,146 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-  Image
-} from 'react-native';
-import { LineChart } from 'react-native-chart-kit'; 
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView } from "react-native";
+import { useTranslation } from "react-i18next";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import "../utils/i18n";
 
-const InvestAndMarketplaceScreen = () => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Image
-          source={require('../assets/Ey.jpg')} 
-          style={styles.logo}
-        />
-      </View>
+const loans = [
+    { id: 1, name: "home_loan", icon: "home-outline", screen: "HomeLoanScreen" },
+    { id: 2, name: "education_loan", icon: "school-outline", screen: "EducationLoanScreen" },
+    { id: 3, name: "farmer_loan", icon: "leaf-outline", screen: "FarmerLoanScreen" },
+    { id: 4, name: "business_loan", icon: "car-outline", screen: "BusinessLoanScreen" }
+];
 
-      <ScrollView>
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Micro-Investment Platform</Text>
-          <Text style={styles.sectionDescription}>
-            Track your investment progress and performance.
-          </Text>
+const MarketplaceScreen = () => {
+    const { t, i18n } = useTranslation();
+    const navigation = useNavigation();
 
-          <View style={styles.graphsContainer}>
-            <View style={styles.graphContainer}>
-              <Text style={styles.graphTitle}>Investment Growth</Text>
-              <LineChart
-                data={{
-                  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-                  datasets: [
-                    {
-                      data: [10, 25, 35, 40, 45],
-                    },
-                  ],
-                }}
-                width={200}
-                height={150}
-                chartConfig={{
-                  backgroundColor: '#1a1a1a',
-                  backgroundGradientFrom: '#1a1a1a',
-                  backgroundGradientTo: '#1a1a1a',
-                  color: (opacity = 1) => `rgba(255, 193, 7, ${opacity})`,
-                  strokeWidth: 2,
-                  barPercentage: 0.5,
-                }}
-              />
+    return (
+        <ScrollView style={styles.container}>
+            {/* EY Logo */}
+            <View style={styles.logoContainer}>
+                <Image source={require("../assets/Ey.jpg")} style={styles.eyLogo} />
             </View>
-            <View style={styles.graphContainer}>
-              <Text style={styles.graphTitle}>Savings Increase</Text>
-              <LineChart
-                data={{
-                  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-                  datasets: [
-                    {
-                      data: [0, 10, 15, 25, 35],
-                    },
-                  ],
-                }}
-                width={200}
-                height={150}
-                chartConfig={{
-                  backgroundColor: '#1a1a1a',
-                  backgroundGradientFrom: '#1a1a1a',
-                  backgroundGradientTo: '#1a1a1a',
-                  color: (opacity = 1) => `rgba(255, 193, 7, ${opacity})`,
-                  strokeWidth: 2,
-                  barPercentage: 0.5,
-                }}
-              />
+            
+            {/* 🏡 Loans Section */}
+            <Text style={styles.title}>{t("loans")}</Text>
+            <View style={styles.loanGrid}>
+                {loans.map((loan) => (
+                    <TouchableOpacity key={loan.id} style={styles.loanButton} onPress={() => navigation.navigate(loan.screen)}>
+                        <View style={styles.iconContainer}>
+                            <Ionicons name={loan.icon} size={32} color="#FFD700" />
+                        </View>
+                        <Text style={styles.loanText}>{t(loan.name)}</Text>
+                    </TouchableOpacity>
+                ))}
             </View>
-            <View style={styles.graphContainer}>
-              <Text style={styles.graphTitle}>Loss / Hike Percentage</Text>
-              <LineChart
-                data={{
-                  labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-                  datasets: [
-                    {
-                      data: [2, 5, 7, 4],
-                    },
-                  ],
-                }}
-                width={200}
-                height={150}
-                chartConfig={{
-                  backgroundColor: '#1a1a1a',
-                  backgroundGradientFrom: '#1a1a1a',
-                  backgroundGradientTo: '#1a1a1a',
-                  color: (opacity = 1) => `rgba(255, 193, 7, ${opacity})`,
-                  strokeWidth: 2,
-                  barPercentage: 0.5,
-                }}
-              />
-            </View>
-          </View>
 
-          <View style={styles.statsContainer}>
-            <View style={styles.statBox}>
-              <Text style={styles.statTitle}>Increase</Text>
-              <Text style={styles.statValue}>₹1,000</Text>
-            </View>
-            <View style={styles.statBox}>
-              <Text style={styles.statTitle}>Savings</Text>
-              <Text style={styles.statValue}>₹8,500</Text>
-            </View>
-            <View style={styles.statBox}>
-              <Text style={styles.statTitle}>Output</Text>
-              <Text style={[styles.statValue, styles.lossstat]}>+5%</Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Localized Solutions</Text>
-          <Text style={styles.sectionDescription}>
-            Explore region-specific financial opportunities.
-          </Text>
-
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>Government Subsidy: Rural Housing</Text>
-            <Text style={styles.cardDescription}>
-              Get up to ₹2,50,000 for building or renovating your home.
-            </Text>
-            <TouchableOpacity style={styles.applyButton}>
-              <Text style={styles.applyButtonText}>Apply Now</Text>
+            {/* 📜 Explore Government Schemes */}
+            <TouchableOpacity style={styles.schemeButton} onPress={() => navigation.navigate("MySchemeScreen")}>
+                <Text style={styles.schemeText}>📜 {t("explore_schemes")}</Text>
             </TouchableOpacity>
-          </View>
 
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>Farmer Loan Assistance</Text>
-            <Text style={styles.cardDescription}>
-              Loans starting at ₹10,000 with low-interest rates for farming expenses.
-            </Text>
-            <TouchableOpacity style={styles.applyButton}>
-              <Text style={styles.applyButtonText}>Apply Now</Text>
-            </TouchableOpacity>
-          </View>
+            {/* 📈 Invest & Insurance Section */}
+            <Text style={styles.heading}>{t("invest_insurance")}</Text>
+            <View style={styles.rowContainer}>
+                <TouchableOpacity style={styles.box} onPress={() => navigation.navigate("InvestmentScreen")}>
+                    <Ionicons name="trending-up-outline" size={40} color="#FFD700" />
+                    <Text style={styles.boxText}>{t("invest")}</Text>
+                </TouchableOpacity>
 
-          <TouchableOpacity style={styles.viewMoreButton}>
-            <Text style={styles.viewMoreText}>View More</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Financial Products</Text>
-
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>Micro-Loan: Women's Self-Help Group</Text>
-            <Text style={styles.cardDescription}>
-              Low-interest loans starting at ₹500 for small businesses and home needs.
-            </Text>
-            <TouchableOpacity style={styles.applyButton}>
-              <Text style={styles.applyButtonText}>Apply Now</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>Savings Account: Zero Balance</Text>
-            <Text style={styles.cardDescription}>
-              Open a savings account with no minimum balance requirement and attractive interest rates.
-            </Text>
-            <TouchableOpacity style={styles.applyButton}>
-              <Text style={styles.applyButtonText}>Apply Now</Text>
-            </TouchableOpacity>
-          </View>
-
-          <TouchableOpacity style={styles.viewMoreButton}>
-            <Text style={styles.viewMoreText}>View More</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </View>
-  );
+                <TouchableOpacity style={styles.box} onPress={() => navigation.navigate("InsuranceScreen")}>
+                    <Ionicons name="shield-checkmark-outline" size={40} color="#FFD700" />
+                    <Text style={styles.boxText}>{t("insurance")}</Text>
+                </TouchableOpacity>
+            </View>
+            {/* 🌍 Language Switcher */}
+            <View style={styles.languageSwitcher}>
+                <TouchableOpacity onPress={() => i18n.changeLanguage("en")} style={styles.langButton}>
+                    <Text style={styles.langText}>🇬🇧 English</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => i18n.changeLanguage("hi")} style={styles.langButton}>
+                    <Text style={styles.langText}>🇮🇳 हिन्दी</Text>
+                </TouchableOpacity>
+            </View>
+        </ScrollView>
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 60,
-    backgroundColor: '#000',
-  },
-  logoContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  logo: {
-    width: 120,  
-    height: 60, 
-    resizeMode: 'contain',
-  },
-  section: {
-    margin: 15,
-    backgroundColor: '#1a1a1a',
-    borderRadius: 10,
-    padding: 15,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#FFC107',
-    marginBottom: 5,
-  },
-  sectionDescription: {
-    fontSize: 14,
-    color: '#ccc',
-    marginBottom: 10,
-  },
-  graphsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 15,
-  },
-  graphContainer: {
-    width: '30%',
-  },
-  graphTitle: {
-    textAlign: 'center',
-    color: '#FFC107',
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-  },
-  statBox: {
-    backgroundColor: '#333',
-    padding: 10,
-    borderRadius: 10,
-    width: '30%',
-    alignItems: 'center',
-  },
-  statTitle: {
-    fontSize: 12,
-    color: '#ccc',
-  },
-  statValue: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#FFC107',
-  },
-  lossstat: {
-    color: 'green',
-  },
-  card: {
-    backgroundColor: '#333',
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 10,
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#FFC107',
-  },
-  cardDescription: {
-    fontSize: 14,
-    color: '#fff',
-    marginTop: 5,
-  },
-  applyButton: {
-    backgroundColor: '#FFC107',
-    paddingVertical: 8,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  applyButtonText: {
-    textAlign: 'center',
-    color: '#000',
-    fontWeight: 'bold',
-  },
-  viewMoreButton: {
-    marginTop: 10,
-    backgroundColor: '#FFC107',
-    paddingVertical: 8,
-    borderRadius: 5,
-  },
-  viewMoreText: {
-    textAlign: 'center',
-    color: '#000',
-    fontWeight: 'bold',
-  },
+    container: { flex: 1, padding: 20, backgroundColor: "#000" },
+    logoContainer: { alignItems: "center", marginBottom: 20 },
+    eyLogo: { width: 100, height: 50, resizeMode: "contain",marginTop:100,marginBottom:-80 },
+    title: { fontSize: 26, fontWeight: "bold", textAlign: "center", color: "#FFD700", marginBottom: 20, top:60 },
+
+    /* 📌 Loan Section */
+    loanGrid: { flexDirection: "row", marginTop:38, flexWrap: "wrap", justifyContent: "space-between" },
+    loanButton: {
+        width: "48%",
+        flexDirection: "column",
+        alignItems: "center",
+        backgroundColor: "#222",
+        padding: 18,
+        borderRadius: 15,
+        marginVertical: 10,
+        justifyContent: "center",
+        shadowColor: "#FFD700",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        elevation: 5,
+        borderWidth: 2,
+        borderColor: "#FFD700"
+    },
+    iconContainer: {
+        backgroundColor: "#000",
+        padding: 15,
+        borderRadius: 50,
+        marginBottom: 10,
+        borderWidth: 2,
+        borderColor: "#FFD700"
+    },
+    loanText: { fontSize: 18, fontWeight: "bold", color: "#FFD700", textAlign: "center" },
+
+    /* 📜 Government Schemes */
+    schemeButton: {
+        backgroundColor: "#FFC107",
+        padding: 15,
+        borderRadius: 10,
+        alignItems: "center",
+        justifyContent: "center",
+        marginVertical: 10,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        elevation: 5
+    },
+    schemeText: { fontSize: 18, fontWeight: "bold", color: "#000" },
+
+    /* 📈 Investment & Insurance Boxes */
+    rowContainer: { flexDirection: "row", justifyContent: "space-between", marginTop: -10 },
+    box: {
+        width: "48%",
+        backgroundColor: "#222",
+        paddingVertical: 30,
+        borderRadius: 15,
+        alignItems: "center",
+        justifyContent: "center",
+        shadowColor: "#FFD700",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        elevation: 5,
+        borderWidth: 2,
+        borderColor: "#FFD700"
+    },
+    boxText: { fontSize: 18, fontWeight: "bold", color: "#FFD700", textAlign: "center", marginTop: 10 },
+
+    /* 🌍 Language Switcher */
+    languageSwitcher: { flexDirection: "row", justifyContent: "center", marginTop: 20 },
+    langButton: { marginHorizontal: 5, padding: 10, backgroundColor: "#FFC107", borderRadius: 5 },
+    langText: { fontSize: 16, fontWeight: "bold", color: "#000" }
 });
 
-export default InvestAndMarketplaceScreen;
+export default MarketplaceScreen;

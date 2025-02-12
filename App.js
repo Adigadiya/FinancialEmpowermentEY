@@ -3,7 +3,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'; 
-
+import HomeLoanScreen from "./components/HomeLoanScreen"; // Adjust path if needed
+import FarmerLoanScreen from "./components/FarmerLoanScreen"; 
+import BusinessLoanScreen from "./components/BusinessLoanScreen";
+import InvestmentScreen from "./components/InvestmentScreen";
+import EducationLoanScreen from "./components/EducationLoanScreen"; 
 import CommunityScreen from './components/CommunityScreen';
 import MarketplaceScreen from './components/MarketplaceScreen';
 import PlannerScreen from './components/PlannerScreen';
@@ -12,23 +16,35 @@ import ProfileScreen from './components/ProfileScreen';
 import BlogDetailScreen from './components/BlogDetailScreen';
 import AlertsScreen from './components/AlertsScreen'; 
 import ChatbotScreen from './components/ChatbotScreen';
+import MySchemeScreen from './components/MySchemeScreen';  
+import InsuranceScreen from "./components/InsuranceScreen";
+
 
 const Stack = createNativeStackNavigator();
 
+
 const LearnNavigator = () => (
   <Stack.Navigator>
-    <Stack.Screen 
-      name="LearnScreen" 
-      component={LearnScreen} 
-      options={{ headerShown: false }} 
-    />
-    <Stack.Screen 
-      name="BlogDetailScreen" 
-      component={BlogDetailScreen} 
-      options={{ headerShown: false }} 
-    />
+    <Stack.Screen name="LearnScreen" component={LearnScreen} options={{ headerShown: false }} />
+    <Stack.Screen name="BlogDetailScreen" component={BlogDetailScreen} options={{ headerShown: false }} />
   </Stack.Navigator>
 );
+
+const AppNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Marketplace" component={MarketplaceScreen} options={{ headerShown: false }} />
+    <Stack.Screen name="MySchemeScreen" component={MySchemeScreen} options={{ title: "Government Schemes", headerShown: true }} /> 
+    <Stack.Screen name="InvestmentScreen" component={InvestmentScreen} options={{ title: "Investments", headerShown: true }} /> 
+    <Stack.Screen name="HomeLoanScreen" component={HomeLoanScreen} options={{ title: "Home Loans" }} />
+    <Stack.Screen name="EducationLoanScreen" component={EducationLoanScreen} options={{ title: "Education Loans", headerShown: true }} /> 
+    <Stack.Screen name="FarmerLoanScreen" component={FarmerLoanScreen} options={{ title: "Farmer & Agriculture Loans" }} />
+    <Stack.Screen name="InsuranceScreen" component={InsuranceScreen} options={{ title: "Insurance Plans" }} />
+    <Stack.Screen name="BusinessLoanScreen" component={BusinessLoanScreen} options={{ title: "Business Loans" }} />
+
+    
+  </Stack.Navigator>
+);
+
 
 const tabs = [
   { name: 'Community', label: 'Community', iconName: 'people-outline' },
@@ -43,13 +59,14 @@ export default function App() {
   const [topScreen, setTopScreen] = useState(null); 
 
   const renderScreen = () => {
-    if (topScreen === 'Alerts') return <AlertsScreen />;
-    if (topScreen === 'Chatbot') return <ChatbotScreen />;
+    if (topScreen === 'Alerts' && currentScreen !== 'MyScheme') return <AlertsScreen />;
+    if (topScreen === 'Chatbot' && currentScreen !== 'MyScheme') return <ChatbotScreen />;
+    
     switch (currentScreen) {
       case 'Community':
         return <CommunityScreen />;
       case 'Marketplace':
-        return <MarketplaceScreen />;
+        return <AppNavigator />;
       case 'Planner':
         return <PlannerScreen />;
       case 'Learn':
@@ -65,44 +82,28 @@ export default function App() {
     <NavigationContainer>
       <View style={{ flex: 1 }}>
         {renderScreen()}
-        <View style={styles.topButtons}>
-          <TouchableOpacity
-            style={styles.alertButton}
-            onPress={() => setTopScreen('Alerts')}
-          >
-            <Icon name="alert-circle-outline" size={28} color="#fff" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.chatbotButton}
-            onPress={() => setTopScreen('Chatbot')}
-          >
-            <Icon name="chatbubbles-outline" size={28} color="#fff" />
-          </TouchableOpacity>
-        </View>
+        {currentScreen !== 'MySchemeScreen' && (
+          <View style={styles.topButtons}>
+            <TouchableOpacity style={styles.alertButton} onPress={() => setTopScreen('Alerts')}>
+              <Icon name="alert-circle-outline" size={28} color="#fff" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.chatbotButton} onPress={() => setTopScreen('Chatbot')}>
+              <Icon name="chatbubbles-outline" size={28} color="#fff" />
+            </TouchableOpacity>
+          </View>
+        )}
         <View style={styles.bottomNav}>
           {tabs.map((tab) => (
             <TouchableOpacity
               key={tab.name}
-              style={[
-                styles.navButton,
-                currentScreen === tab.name && styles.activeTab, 
-              ]}
+              style={[styles.navButton, currentScreen === tab.name && styles.activeTab]}
               onPress={() => {
                 setCurrentScreen(tab.name);
                 setTopScreen(null); 
               }}
             >
-              <Icon
-                name={tab.iconName}
-                size={24}
-                color={currentScreen === tab.name ? '#007bff' : '#6c757d'}
-              />
-              <Text
-                style={[
-                  styles.navText,
-                  currentScreen === tab.name && styles.activeTabText,
-                ]}
-              >
+              <Icon name={tab.iconName} size={24} color={currentScreen === tab.name ? '#007bff' : '#6c757d'} />
+              <Text style={[styles.navText, currentScreen === tab.name && styles.activeTabText]}>
                 {tab.label}
               </Text>
             </TouchableOpacity>
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ff4d4f',
     width: 50,
     height: 50,
-    top:50,
+    top: 50,
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
   chatbotButton: {
     backgroundColor: '#4caf50',
     width: 50,
-    top:50,
+    top: 50,
     height: 50,
     borderRadius: 25,
     justifyContent: 'center',

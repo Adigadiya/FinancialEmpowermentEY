@@ -1,286 +1,124 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, TextInput } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { PieChart } from "react-native-chart-kit";
+import { ProgressBar } from "react-native-paper";
 
-const PlannerScreen = () => {
-  const financialData = {
-    savings: 150000, 
-    expectedSavings: 300000,
-    goalSavings:500000, 
-    expensesByCategory: require('../assets/savings.jpg'), 
-    shortfallPercentage: ((500000 - 300000) / 500000) * 100, 
-    financialGoals: [
-      { name: "Children's Education", goalAmount: 200000, saved: 120000 },
-      { name: 'House Loan Down Payment', goalAmount: 300000, saved: 180000 },
-      { name: 'Emergency Fund', goalAmount: 100000, saved: 70000 },
-    ],
-    recommendations: [
-      { category: 'Dining Out', suggestion: 'Reduce frequency to 1x a week' },
-      { category: 'Shopping', suggestion: 'Limit non-essential purchases' },
-      { category: 'Travel', suggestion: 'Opt for economical travel options' },
-    ],
+export default function SpendPlannerScreen() {
+  const [expenses, setExpenses] = useState([
+    { name: "Food", amount: 5000, color: "#FFD700" },
+    { name: "Transport", amount: 2000, color: "#FF5733" },
+    { name: "Rent", amount: 10000, color: "#33FF57" },
+    { name: "Misc", amount: 3000, color: "#3357FF" },
+  ]);
+
+  const [goals, setGoals] = useState([
+    { name: "Buy a House", amount: 1000000, saved: 200000 },
+    { name: "Education Fund", amount: 500000, saved: 100000 },
+  ]);
+
+  const [newExpense, setNewExpense] = useState({ name: "", amount: "" });
+  const [newGoal, setNewGoal] = useState({ name: "", amount: "", saved: "" });
+
+  const addExpense = () => {
+    if (newExpense.name && newExpense.amount) {
+      setExpenses([...expenses, { name: newExpense.name, amount: parseInt(newExpense.amount), color: "#FFFFFF" }]);
+      setNewExpense({ name: "", amount: "" });
+    }
   };
 
-  const renderProgressLine = (saved, goalAmount) => {
-    const progressPercentage = (saved / goalAmount) * 100;
-    return (
-      <View style={styles.progressLineContainer}>
-        <View
-          style={[
-            styles.progressLine,
-            { width: `${progressPercentage}%`, backgroundColor: '#FFC107' },
-          ]}
-        />
-        <View
-          style={[
-            styles.progressLine,
-            { width: `${100 - progressPercentage}%`, backgroundColor: '#fff' },
-          ]}
-        />
-      </View>
-    );
+  const deleteExpense = (index) => {
+    setExpenses(expenses.filter((_, i) => i !== index));
+  };
+
+  const editExpense = (index, newAmount) => {
+    const updatedExpenses = [...expenses];
+    updatedExpenses[index].amount = newAmount;
+    setExpenses(updatedExpenses);
+  };
+
+  const addGoal = () => {
+    if (newGoal.name && newGoal.amount && newGoal.saved) {
+      setGoals([...goals, { name: newGoal.name, amount: parseInt(newGoal.amount), saved: parseInt(newGoal.saved) }]);
+      setNewGoal({ name: "", amount: "", saved: "" });
+    }
+  };
+
+  const deleteGoal = (index) => {
+    setGoals(goals.filter((_, i) => i !== index));
+  };
+
+  const editGoal = (index, newSavedAmount) => {
+    const updatedGoals = [...goals];
+    updatedGoals[index].saved = newSavedAmount;
+    setGoals(updatedGoals);
   };
 
   return (
     <ScrollView style={styles.container}>
+      <View style={styles.logoContainer}>
+        <Image source={require("../assets/Ey.jpg")} style={styles.eyLogo} />
+      </View>
+
+      <Text style={styles.title}>📊 Budget Overview</Text>
+      <PieChart
+        data={expenses.map(expense => ({ ...expense, legendFontColor: "#FFF", legendFontSize: 14 }))}
+        width={350}
+        height={200}
+        chartConfig={{ backgroundColor: "#000", backgroundGradientFrom: "#000", backgroundGradientTo: "#000", color: () => `#FFF` }}
+        accessor="amount"
+        paddingLeft="15"
+        absolute
+      />
       
-      <View style={styles.header}>
-        <Image source={require('../assets/Ey.jpg')} style={styles.logo} />
-      </View>
-
-      <View style={styles.savingsOverview}>
-        <Text style={styles.sectionTitle}>Savings Overview</Text>
-        <View style={styles.savingsRow}>
-          <View style={styles.savingsBlock}>
-            <Text style={styles.savingsLabel}>Savings Till Now</Text>
-            <Text style={styles.savingsValue}>₹{financialData.savings}</Text>
-          </View>
-          <View style={styles.savingsBlock}>
-            <Text style={styles.savingsLabel}>Expected by Year-End</Text>
-            <Text style={styles.savingsValue}>₹{financialData.expectedSavings}</Text>
-          </View>
+      <Text style={styles.sectionTitle}>💸 Expenses</Text>
+      {expenses.map((expense, index) => (
+        <View key={index} style={styles.itemContainer}>
+          <Text style={styles.expenseItem}>{expense.name}: ₹</Text>
+          <TextInput 
+            style={styles.input} 
+            keyboardType="numeric"
+            value={String(expense.amount)}
+            onChangeText={text => editExpense(index, parseInt(text) || 0)}
+          />
+          <TouchableOpacity onPress={() => deleteExpense(index)}>
+            <Ionicons name="trash" size={20} color="red" />
+          </TouchableOpacity>
         </View>
-        <View style={styles.savingsRow}>
-          <View style={styles.savingsBlock}>
-            <Text style={styles.savingsLabel}>Shortfall Percentage</Text>
-            <Text style={styles.shortfallValue}>
-              {financialData.shortfallPercentage.toFixed(1)}% Short
-            </Text>
-          </View>
-          <View style={styles.savingsBlock}>
-            <Text style={styles.savingsLabel}>Savings Goal</Text>
-            <Text style={styles.savingsValue}>₹{financialData.goalSavings}</Text>
-          </View>
+      ))}
+      
+      <Text style={styles.sectionTitle}>🎯 Financial Goals</Text>
+      {goals.map((goal, index) => (
+        <View key={index} style={styles.goalContainer}>
+          <Text style={styles.goalItem}>{goal.name} - ₹{goal.saved} / ₹{goal.amount}</Text>
+          <ProgressBar progress={goal.saved / goal.amount} color="#FFD700" style={styles.progressBar} />
+          <TextInput 
+            style={styles.input} 
+            keyboardType="numeric"
+            value={String(goal.saved)}
+            onChangeText={text => editGoal(index, parseInt(text) || 0)}
+          />
+          <TouchableOpacity onPress={() => deleteGoal(index)}>
+            <Ionicons name="trash" size={20} color="red" />
+          </TouchableOpacity>
         </View>
-      </View>
-
-      <View style={styles.goalSection}>
-        <Text style={styles.sectionTitle}>Financial Goals</Text>
-        {financialData.financialGoals.map((goal, index) => (
-          <View key={index} style={styles.goalItem}>
-            <Text style={styles.goalName}>{goal.name}</Text>
-            <Text style={styles.goalAmount}>
-              Saved: ₹{goal.saved} / Goal: ₹{goal.goalAmount}
-            </Text>
-            {renderProgressLine(goal.saved, goal.goalAmount)}
-          </View>
-        ))}
-      </View>
-<View style={styles.expenseTrackerSection}>
-  <Text style={styles.sectionTitle}>Expense Tracker</Text>
-
-  <Image
-    source={financialData.expensesByCategory}
-    style={styles.chartImage}
-    resizeMode="contain"
-  />
-
-  <View style={styles.expenseTrackerActions}>
-    <TouchableOpacity style={styles.actionButton}>
-      <Text style={styles.buttonText}>Add Expense</Text>
-    </TouchableOpacity>
-    <TouchableOpacity style={styles.actionButton}>
-      <Text style={styles.buttonText}>Add Salary</Text>
-    </TouchableOpacity>
-    <TouchableOpacity style={styles.actionButton}>
-      <Text style={styles.buttonText}>Edit</Text>
-    </TouchableOpacity>
-  </View>
-</View>
-
-      <View style={styles.recommendationSection}>
-        <Text style={styles.sectionTitle}>Recommendations</Text>
-        {financialData.recommendations.map((item, index) => (
-          <View key={index} style={styles.recommendationItem}>
-            <Text style={styles.recommendationText}>
-              <Icon name="checkmark-circle" size={20} color="#FFC107" /> {item.category}:{' '}
-              {item.suggestion}
-            </Text>
-          </View>
-        ))}
-      </View>
-
-      <View style={styles.alertsSection}>
-        <Text style={styles.sectionTitle}>Alerts</Text>
-        <View style={styles.alertItem}>
-          <Icon name="warning" size={20} color="#FFC107" />
-          <Text style={styles.alertText}>You have overspent on Dining Out this month.</Text>
-        </View>
-        <View style={styles.alertItem}>
-          <Icon name="checkmark-done" size={20} color="#FFC107" />
-          <Text style={styles.alertText}>Congratulations! You reached 60% of your savings goal!</Text>
-        </View>
-      </View>
+      ))}
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-    padding: 15,
-    paddingTop:70,
-  },
-  logo: {
-    width: 120,
-    height: 50, 
-    resizeMode: 'contain', 
-    alignSelf: 'center', 
-    marginBottom: 10, 
-  },
-  
-  expenseTrackerSection: {
-    marginBottom: 20,
-    backgroundColor: '#1a1a1a',
-    borderRadius: 12,
-    padding: 15,
-    alignItems: 'center',
-  },
-  chartImage: {
-    width: 1100,
-    height: 250,
-    marginBottom: 15,
-  },
-  expenseTrackerActions: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-  },
-  actionButton: {
-    backgroundColor: '#FFC107',
-    borderRadius: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
-  buttonText: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  
-  header: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  headerText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#FFC107',
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#FFC107',
-    marginBottom: 10,
-  },
-  savingsOverview: {
-    marginBottom: 20,
-    backgroundColor: '#1a1a1a',
-    borderRadius: 12,
-    padding: 15,
-  },
-  savingsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-  },
-  savingsBlock: {
-    flex: 1,
-    alignItems: 'center',
-    paddingHorizontal: 5,
-  },
-  savingsLabel: {
-    fontSize: 14,
-    color: '#f8f9fa',
-  },
-  savingsValue: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#FFC107',
-  },
-  shortfallValue: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#FF4C4C',
-  },
-  goalSection: {
-    marginBottom: 20,
-    backgroundColor: '#1a1a1a',
-    borderRadius: 12,
-    padding: 15,
-  },
-  goalItem: {
-    marginBottom: 15,
-  },
-  goalName: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#f8f9fa',
-  },
-  goalAmount: {
-    fontSize: 14,
-    color: '#f8f9fa',
-    marginBottom: 5,
-  },
-  progressLineContainer: {
-    height: 10,
-    flexDirection: 'row',
-    borderRadius: 5,
-    overflow: 'hidden',
-  },
-  progressLine: {
-    height: '100%',
-  },
-  recommendationSection: {
-    marginBottom: 20,
-    backgroundColor: '#1a1a1a',
-    borderRadius: 12,
-    padding: 15,
-  },
-  recommendationItem: {
-    marginBottom: 10,
-  },
-  recommendationText: {
-    fontSize: 14,
-    color: '#f8f9fa',
-  },
-  alertsSection: {
-    marginBottom: 20,
-    backgroundColor: '#1a1a1a',
-    borderRadius: 12,
-    padding: 15,
-  },
-  alertItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  alertText: {
-    fontSize: 14,
-    color: '#f8f9fa',
-    marginLeft: 10,
-  },
+  container: { flex: 1, backgroundColor: "#000", padding: 20 },
+  logoContainer: { alignItems: "center", marginBottom: 20 },
+  eyLogo: { width: 100, height: 50, resizeMode: "contain" },
+  title: { fontSize: 22, fontWeight: "bold", color: "#FFD700", textAlign: "center", marginBottom: 20 },
+  sectionTitle: { fontSize: 18, fontWeight: "bold", color: "#FFD700", marginTop: 20, marginBottom: 10 },
+  itemContainer: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginVertical: 5 },
+  goalContainer: { marginVertical: 10 },
+  expenseItem: { fontSize: 16, color: "#FFF" },
+  goalItem: { fontSize: 16, color: "#FFD700", marginBottom: 5 },
+  progressBar: { height: 10, borderRadius: 5, marginTop: 5 },
+  input: { backgroundColor: "#333", color: "#FFF", padding: 10, borderRadius: 5, marginBottom: 10, width: 100 },
+  addButton: { backgroundColor: "#FFD700", padding: 10, borderRadius: 5, alignItems: "center", marginBottom: 20 },
+  addButtonText: { fontSize: 16, fontWeight: "bold", color: "#000" }
 });
-
-export default PlannerScreen;
