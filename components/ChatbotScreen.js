@@ -7,7 +7,9 @@ import axios from 'axios';
 import Constants from 'expo-constants';
 import LottieView from 'lottie-react-native';
 
+
 const OPENAI_API_KEY = Constants.expoConfig.extra?.OPENAI_API_KEY || '';
+
 
 const ChatbotScreen = () => {
   const [messages, setMessages] = useState([
