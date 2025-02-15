@@ -1,202 +1,141 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList, Image, StyleSheet } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import { Ionicons } from '@expo/vector-icons';
+import React, { useState } from "react";
+import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-const CommunityScreen = () => {
-  const [forumPosts, setForumPosts] = useState([
-    {
-      id: 1,
-      name: 'User1',
-      avatar: require('../assets/user1.jpg'),
-      content: 'How do I apply for a government subsidy?',
-      upvotes: 10,
-      downvotes: 2,
-      image: require('../assets/user1.jpg'),
-      comments: [
-        {
-          id: 101,
-          name: 'Rahul Yadav',
-          content: 'Is there any website for checking eligibility?',
-          replies: [
-            { id: 202, name: 'User4', content: 'Yes, you can check on the official government website for subsidies.' },
-            { id: 203, name: 'User5', content: 'I found the eligibility details on the NABARD website as well.' }
-          ]
-        }
-      ]
-    }
-  ]);
+const posts = [
+  {
+    id: "1",
+    user: "r/FinanceTalks",
+    title: "Stock Market Trends for 2025",
+    image: "https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/3-remote-village-of-eng-tribe-in-mountains-near-kengtung-myanmar-cavan-images.jpg",
+    likes: 1200,
+    dislikes: 50,
+    comments: 300,
+  },
+  {
+    id: "2",
+    user: "r/InvestmentTips",
+    title: "How to Save Money in Your 20s",
+    image: null,
+    likes: 800,
+    dislikes: 30,
+    comments: 120,
+  },
+  {
+    id: "3",
+    user: "r/CryptoWorld",
+    title: "Bitcoin Hits New High!",
+    image: "https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/3-remote-village-of-eng-tribe-in-mountains-near-kengtung-myanmar-cavan-images.jpg",
+    likes: 2500,
+    dislikes: 100,
+    comments: 600,
+  },
+];
 
-  const [newPostContent, setNewPostContent] = useState('');
-  const [newPostImage, setNewPostImage] = useState(null);
-  const [newComment, setNewComment] = useState('');
-  const [newReply, setNewReply] = useState('');
-  
-  const handlePickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ImagePicker.MediaTypeOptions.Images });
-    if (result.canceled) return;
-    setNewPostImage(result.assets[0].uri);
-  };
+const CommunityScreen = ({ navigation }) => {
+  const [postData, setPostData] = useState(posts);
 
-  const handlePost = () => {
-    if (!newPostContent.trim() && !newPostImage) return;
-    const newPost = {
-      id: Date.now(),
-      name: 'You',
-      avatar: require('../assets/user1.jpg'),
-      content: newPostContent,
-      image: newPostImage,
-      upvotes: 0,
-      downvotes: 0,
-      comments: []
-    };
-    setForumPosts([newPost, ...forumPosts]);
-    setNewPostContent('');
-    setNewPostImage(null);
-  };
-
-  const handleUpvote = (postId) => {
-    setForumPosts(forumPosts.map(post => post.id === postId ? { ...post, upvotes: post.upvotes + 1 } : post));
-  };
-
-  const handleDownvote = (postId) => {
-    setForumPosts(forumPosts.map(post => post.id === postId ? { ...post, downvotes: post.downvotes + 1 } : post));
-  };
-
-  const handleAddComment = (postId) => {
-    if (!newComment.trim()) return;
-    setForumPosts(forumPosts.map(post => 
-      post.id === postId ? { ...post, comments: [...post.comments, { id: Date.now(), name: 'You', content: newComment, replies: [] }] } : post
-    ));
-    setNewComment('');
-  };
-
-  const handleAddReply = (postId, commentId) => {
-    if (!newReply.trim()) return;
-    setForumPosts(forumPosts.map(post => {
-      if (post.id === postId) {
+  const handleVote = (id, type) => {
+    const updatedPosts = postData.map((post) => {
+      if (post.id === id) {
         return {
           ...post,
-          comments: post.comments.map(comment => 
-            comment.id === commentId ? { ...comment, replies: [...comment.replies, { id: Date.now(), name: 'You', content: newReply }] } : comment
-          )
+          likes: type === "like" ? post.likes + 1 : post.likes,
+          dislikes: type === "dislike" ? post.dislikes + 1 : post.dislikes,
         };
       }
       return post;
-    }));
-    setNewReply('');
+    });
+    setPostData(updatedPosts);
   };
 
   return (
-    <FlatList
-      style={styles.container}
-      ListHeaderComponent={() => (
-        <View style={styles.headerContainer}>
-          <Text style={styles.title}>Community Forum</Text>
-          <TextInput
-            placeholder="Write a post..."
-            value={newPostContent}
-            onChangeText={setNewPostContent}
-            style={styles.input}
-          />
-          {newPostImage && <Image source={{ uri: newPostImage }} style={styles.previewImage} />}
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={handlePickImage} style={styles.button}>
-              <Text style={styles.buttonText}>Pick an Image</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handlePost} style={[styles.button, styles.postButton]}>
-              <Text style={styles.buttonText}>Post</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
-      data={forumPosts}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => (
-        <View style={styles.postContainer}>
-          <View style={styles.userInfo}>
-            <Image source={item.avatar} style={styles.avatar} />
-            <Text style={styles.postAuthor}>{item.name}</Text>
-          </View>
-          <Text style={styles.postContent}>{item.content}</Text>
-          {item.image && <Image source={item.image} style={styles.postImage} />}
-          <View style={styles.voteContainer}>
-            <TouchableOpacity onPress={() => handleUpvote(item.id)}>
-              <Ionicons name="arrow-up" size={20} color="green" />
-            </TouchableOpacity>
-            <Text>{item.upvotes}</Text>
-            <TouchableOpacity onPress={() => handleDownvote(item.id)}>
-              <Ionicons name="arrow-down" size={20} color="red" />
-            </TouchableOpacity>
-            <Text>{item.downvotes}</Text>
-          </View>
-          <TextInput
-            placeholder="Write a comment..."
-            value={newComment}
-            onChangeText={setNewComment}
-            style={styles.input}
-          />
-          <TouchableOpacity onPress={() => handleAddComment(item.id)} style={styles.button}>
-            <Text style={styles.buttonText}>Comment</Text>
-          </TouchableOpacity>
-          <FlatList
-            data={item.comments}
-            keyExtractor={(comment) => comment.id.toString()}
-            renderItem={({ item: comment }) => (
-              <View style={styles.commentContainer}>
-                <Text style={styles.commentAuthor}>{comment.name}:</Text>
-                <Text style={styles.commentContent}>{comment.content}</Text>
-                <TextInput
-                  placeholder="Write a reply..."
-                  value={newReply}
-                  onChangeText={setNewReply}
-                  style={styles.input}
-                />
-                <TouchableOpacity onPress={() => handleAddReply(item.id, comment.id)} style={styles.button}>
-                  <Text style={styles.buttonText}>Reply</Text>
-                </TouchableOpacity>
-                <FlatList
-                  data={comment.replies}
-                  keyExtractor={(reply) => reply.id.toString()}
-                  renderItem={({ item: reply }) => (
-                    <View style={styles.replyContainer}>
-                      <Text style={styles.replyAuthor}>{reply.name}:</Text>
-                      <Text style={styles.replyContent}>{reply.content}</Text>
-                    </View>
-                  )}
-                />
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f0f2f5" }}>
+      <FlatList
+        data={postData}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => navigation.navigate("PostDetails", { post: item })}>
+            <View style={styles.postContainer}>
+              <Text style={styles.user}>{item.user}</Text>
+              <Text style={styles.title}>{item.title}</Text>
+              {item.image && (
+                <Image source={{ uri: item.image }} style={styles.image} />
+              )}
+              <View style={styles.footer}>
+                <View style={styles.voteSection}>
+                  <TouchableOpacity onPress={() => handleVote(item.id, "like")}>                  
+                    <Ionicons name="thumbs-up" size={24} color="green" />
+                  </TouchableOpacity>
+                  <Text style={styles.voteCount}>{item.likes}</Text>
+                  <TouchableOpacity onPress={() => handleVote(item.id, "dislike")}>                  
+                    <Ionicons name="thumbs-down" size={24} color="red" />
+                  </TouchableOpacity>
+                  <Text style={styles.voteCount}>{item.dislikes}</Text>
+                </View>
+                <View style={styles.commentSection}>
+                  <Ionicons name="chatbubble-outline" size={24} color="black" />
+                  <Text style={styles.commentCount}>{item.comments} Comments</Text>
+                </View>
               </View>
-            )}
-          />
-        </View>
-      )}
-    />
+            </View>
+          </TouchableOpacity>
+        )}
+      />
+    </SafeAreaView>
   );
 };
 
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 10, backgroundColor: '#f9f9f9' },
-  headerContainer: { backgroundColor: '#fff', padding: 10, borderRadius: 10, marginBottom: 10 },
-  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 10, textAlign: 'center' },
-  input: { borderWidth: 1, borderColor: '#ccc', padding: 10, borderRadius: 5, marginBottom: 10 },
-  buttonContainer: { flexDirection: 'row', justifyContent: 'space-between' },
-  button: { backgroundColor: '#007bff', padding: 10, borderRadius: 5, flex: 1, marginHorizontal: 5, alignItems: 'center' },
-  buttonText: { color: 'white', fontWeight: 'bold' },
-  postContainer: { backgroundColor: '#fff', padding: 10, marginBottom: 10, borderRadius: 5 },
-  userInfo: { flexDirection: 'row', alignItems: 'center', marginBottom: 5 },
-  avatar: { width: 40, height: 40, borderRadius: 20, marginRight: 10 },
-  postAuthor: { fontWeight: 'bold', fontSize: 16 },
-  postContent: { fontSize: 14, marginVertical: 5 },
-  postImage: { width: '100%', height: 200, borderRadius: 5, marginTop: 10 },
-  previewImage: { width: '100%', height: 100, borderRadius: 5, marginBottom: 10 },
-  voteContainer: { flexDirection: 'row', alignItems: 'center', marginTop: 10, justifyContent: 'space-around' },
-  commentContainer: { paddingLeft: 10, marginTop: 10 },
-  commentAuthor: { fontWeight: 'bold' },
-  commentContent: { fontSize: 14 },
-  replyContainer: { paddingLeft: 20, marginTop: 5 },
-  replyAuthor: { fontWeight: 'bold' },
-  replyContent: { fontSize: 13 }
-});
+const styles = {
+  postContainer: {
+    backgroundColor: "#fff",
+    padding: 15,
+    marginVertical: 8,
+    marginHorizontal: 10,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+  },
+  user: {
+    fontSize: 14,
+    color: "#555",
+    marginBottom: 5,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+  image: {
+    width: "100%",
+    height: 200,
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  voteSection: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  voteCount: {
+    marginHorizontal: 10,
+    fontSize: 16,
+  },
+  commentSection: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  commentCount: {
+    marginLeft: 5,
+    fontSize: 16,
+  },
+};
 
 export default CommunityScreen;

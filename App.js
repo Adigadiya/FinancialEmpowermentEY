@@ -18,11 +18,16 @@ import AlertsScreen from './components/AlertsScreen';
 import ChatbotScreen from './components/ChatbotScreen';
 import MySchemeScreen from './components/MySchemeScreen';  
 import InsuranceScreen from "./components/InsuranceScreen";
-
+import PostDetailsScreen from "./components/PostDetailsScreen";
 
 const Stack = createNativeStackNavigator();
 
-
+const CommunityNavigator=()=>(
+  <Stack.Navigator>
+    <Stack.Screen name='CommunityScreen' component={CommunityScreen} options={{ title: "Financial Community" }} />
+    <Stack.Screen name="PostDetails" component={PostDetailsScreen} options={{ title: "Discussion" }} />
+  </Stack.Navigator>
+);
 const LearnNavigator = () => (
   <Stack.Navigator>
     <Stack.Screen name="LearnScreen" component={LearnScreen} options={{ headerShown: false }} />
@@ -64,7 +69,7 @@ export default function App() {
     
     switch (currentScreen) {
       case 'Community':
-        return <CommunityScreen />;
+        return <CommunityNavigator />;
       case 'Marketplace':
         return <AppNavigator />;
       case 'Planner':
