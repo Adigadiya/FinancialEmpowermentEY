@@ -1,172 +1,169 @@
-import React, { useState, useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Constants from 'expo-constants'; 
+import * as Speech from 'expo-speech';
+import { Audio } from 'expo-av';
+import axios from 'axios';
+import Constants from 'expo-constants';
+import LottieView from 'lottie-react-native';
+
+const OPENAI_API_KEY = Constants.expoConfig.extra?.OPENAI_API_KEY || '';
 
 const ChatbotScreen = () => {
   const [messages, setMessages] = useState([
     { id: 1, sender: 'bot', text: 'Hi! How can I assist you today with financial advice?' },
   ]);
   const [inputText, setInputText] = useState('');
+  const [recording, setRecording] = useState(null);
+  const [speakingMessageId, setSpeakingMessageId] = useState(null);
+  const flatListRef = useRef();
 
-  const flatListRef = useRef(); 
-  const huggingfaceApiKey = "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"; 
+  useEffect(() => {
+    flatListRef.current?.scrollToEnd({ animated: true });
+  }, [messages]);
 
-  if (!huggingfaceApiKey) {
-    console.error('Hugging Face API key is missing or not configured properly.');
-    return (
-      <View style={styles.background}>
-        <Text style={styles.headerText}>API Key Missing</Text>
-      </View>
-    );
-  }
-
-  const sendMessage = async () => {
-    if (!inputText.trim()) return;
-  
-    const newMessage = { id: Date.now(), sender: 'user', text: inputText };
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
-
+  const sendMessageToOpenAI = async (message) => {
     try {
-      const response = await fetch('https://api-inference.huggingface.co/models/openai-community/gpt2', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${huggingfaceApiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          inputs: inputText,
-        }),
+      const response = await axios.post('https://api.openai.com/v1/chat/completions', {
+        model: 'gpt-4o-mini',
+        messages: [{ role: 'user', content: message }],
+      }, {
+        headers: { Authorization: `Bearer ${OPENAI_API_KEY}` },
       });
-  
-      const data = await response.json();
-  
-      console.log("Hugging Face Response:", data); 
-  
-      if (!response.ok) {
-        throw new Error('Failed to fetch from Hugging Face API');
-      }
-  
-      const botMessage = data?.[0]?.generated_text || "Sorry, I couldn't understand your request.";
-  
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { id: Date.now() + 1, sender: 'bot', text: botMessage },
-      ]);
+
+      return response.data.choices[0].message.content;
     } catch (error) {
-      console.error('Error calling Hugging Face API:', error);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { id: Date.now() + 1, sender: 'bot', text: 'Sorry, there was an error processing your request.' },
-      ]);
+      console.error('Error fetching response:', error);
+      return 'Sorry, I encountered an error processing your request.';
     }
-  
-    setInputText('');
   };
 
-  const renderMessage = ({ item }) => (
-    <View
-      style={[styles.messageContainer, item.sender === 'bot' ? styles.botMessage : styles.userMessage]}
-    >
-      <Text style={styles.messageText}>{item.text}</Text>
-    </View>
-  );
+  const handleSend = async () => {
+    if (!inputText.trim()) return;
+    
+    const userMessage = { id: Date.now(), sender: 'user', text: inputText };
+    setMessages((prev) => [...prev, userMessage]);
+    setInputText('');
+    
+    const botResponse = await sendMessageToOpenAI(inputText);
+    const botMessage = { id: Date.now() + 1, sender: 'bot', text: botResponse };
+    setMessages((prev) => [...prev, botMessage]);
+  };
+
+  const handleSpeak = (messageId, text) => {
+    if (speakingMessageId === messageId) {
+      Speech.stop();
+      setSpeakingMessageId(null);
+    } else {
+      setSpeakingMessageId(messageId);
+      Speech.speak(text, {
+        onDone: () => setSpeakingMessageId(null),
+        onStopped: () => setSpeakingMessageId(null),
+      });
+    }
+  };
+
+  const startRecording = async () => {
+    try {
+      await Audio.setAudioModeAsync({ allowsRecordingIOS: true, playsInSilentModeIOS: true });
+      const { status } = await Audio.requestPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Permission to access microphone denied');
+        return;
+      }
+      
+      const recordingInstance = new Audio.Recording();
+      await recordingInstance.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY);
+      await recordingInstance.startAsync();
+      setRecording(recordingInstance);
+    } catch (error) {
+      console.error('Failed to start recording:', error);
+    }
+  };
+
+  const stopRecording = async () => {
+    try {
+      if (!recording) return;
+      
+      await recording.stopAndUnloadAsync();
+      const uri = recording.getURI();
+      setRecording(null);
+      
+      const formData = new FormData();
+      formData.append('file', {
+        uri,
+        type: 'audio/m4a',
+        name: 'audio.m4a',
+      });
+      formData.append('model', 'whisper-1');
+
+      const response = await axios.post('https://api.openai.com/v1/audio/transcriptions', formData, {
+        headers: {
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      
+      setInputText(response.data.text);
+    } catch (error) {
+      console.error('Error transcribing audio:', error);
+    }
+  };
 
   return (
-    <View style={styles.background}>
-     
-      <View style={styles.headerOverlay}>
-        <Text style={styles.headerText}>AI Financial Chatbot</Text>
-      </View>
+    <SafeAreaView style={styles.safeContainer}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
       <FlatList
-        ref={flatListRef} 
+        ref={flatListRef}
         data={messages}
-        renderItem={renderMessage}
         keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={styles.chatContainer}
-        onContentSizeChange={() => flatListRef.current.scrollToEnd({ animated: true })}
+        ListHeaderComponent={<View style={{ height: 60 }} />} // Adds spacing above the first message
+        renderItem={({ item }) => (
+          <View style={[styles.message, item.sender === 'bot' ? styles.botMessage : styles.userMessage]}>
+            <Text style={styles.messageText}>{item.text}</Text>
+            {item.sender === 'bot' && (
+              <TouchableOpacity onPress={() => handleSpeak(item.id, item.text)}>
+                <Icon name={speakingMessageId === item.id ? 'stop-circle' : 'volume-high'} size={20} color="white" />
+              </TouchableOpacity>
+            )}
+          </View>
+        )}
+        keyboardShouldPersistTaps="handled"
       />
 
-      <View style={styles.inputContainer}>
-        <TouchableOpacity>
-          <Icon name="mic-outline" size={28} color="#FFC107" />
-        </TouchableOpacity>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Type your message..."
-          placeholderTextColor="#ccc"
-          value={inputText}
-          onChangeText={setInputText}
-        />
-        <TouchableOpacity onPress={sendMessage}>
-          <Icon name="send-outline" size={28} color="#FFC107" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Icon name="attach-outline" size={28} color="#FFC107" />
-        </TouchableOpacity>
-      </View>
-    </View>
+        {recording && (
+         <LottieView source={require('../assets/mic_recording.json')} autoPlay loop style={styles.recordingAnimation} />
+        )}
+        <View style={styles.inputContainer}>
+          <TouchableOpacity onPress={recording ? stopRecording : startRecording}>
+            <Icon name={recording ? 'mic-off' : 'mic'} size={24} color="white" />
+          </TouchableOpacity>
+          <TextInput
+            style={styles.input}
+            value={inputText}
+            onChangeText={setInputText}
+            placeholder="Type your message..."
+            placeholderTextColor="#bbb"
+          />
+          <TouchableOpacity onPress={handleSend}>
+            <Icon name="send" size={24} color="white" />
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    backgroundColor: '#000', 
-  },
-  headerOverlay: {
-    height: 130, 
-    backgroundColor: '#FFC107',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-  },
-  headerText: {
-    color: '#000',
-    fontSize: 18,
-    paddingTop: 50,
-    fontWeight: 'bold',
-  },
-  chatContainer: {
-    padding: 10,
-    paddingTop: 20,
-  },
-  messageContainer: {
-    marginVertical: 5,
-    maxWidth: '75%',
-    padding: 10,
-    borderRadius: 15,
-  },
-  botMessage: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#FFC107',
-  },
-  userMessage: {
-    alignSelf: 'flex-end',
-    backgroundColor: '#333',
-  },
-  messageText: {
-    color: '#fff',
-    fontSize: 14,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 10,
-    backgroundColor: '#1a1a1a',
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-  },
-  textInput: {
-    flex: 1,
-    height: 40,
-    backgroundColor: '#333',
-    borderRadius: 20,
-    paddingHorizontal: 15,
-    color: '#fff',
-    marginHorizontal: 10,
-  },
+  safeContainer: { flex: 1, backgroundColor: 'black' },
+  container: { flex: 1, padding: 10 },
+  message: { padding: 10, borderRadius: 10, marginVertical: 5, maxWidth: '80%' },
+  botMessage: { alignSelf: 'flex-start', backgroundColor: '#333' },
+  userMessage: { alignSelf: 'flex-end', backgroundColor: '#1e90ff' },
+  messageText: { fontSize: 16, color: 'white' },
+  inputContainer: { flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: '#222', borderTopWidth: 1, borderColor: '#444' },
+  input: { flex: 1, marginHorizontal: 10, padding: 10, borderWidth: 1, borderRadius: 20, borderColor: '#444', color: 'white' },
+  recordingAnimation: { width: 100, height: 100, alignSelf: 'center' }
 });
 
 export default ChatbotScreen;
