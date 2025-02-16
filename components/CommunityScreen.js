@@ -51,7 +51,10 @@ const CommunityScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#f0f2f5" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#000000" }}>
+      <View style={styles.logoContainer}>
+        <Image source={require("../assets/Ey.jpg")} style={styles.eyLogo} />
+      </View>
       <FlatList
         data={postData}
         keyExtractor={(item) => item.id}
@@ -66,16 +69,16 @@ const CommunityScreen = ({ navigation }) => {
               <View style={styles.footer}>
                 <View style={styles.voteSection}>
                   <TouchableOpacity onPress={() => handleVote(item.id, "like")}>                  
-                    <Ionicons name="thumbs-up" size={24} color="green" />
+                    <Ionicons name="thumbs-up" size={24} color="#00ffcc" />
                   </TouchableOpacity>
                   <Text style={styles.voteCount}>{item.likes}</Text>
                   <TouchableOpacity onPress={() => handleVote(item.id, "dislike")}>                  
-                    <Ionicons name="thumbs-down" size={24} color="red" />
+                    <Ionicons name="thumbs-down" size={24} color="#ff6666" />
                   </TouchableOpacity>
                   <Text style={styles.voteCount}>{item.dislikes}</Text>
                 </View>
                 <View style={styles.commentSection}>
-                  <Ionicons name="chatbubble-outline" size={24} color="black" />
+                  <Ionicons name="chatbubble-outline" size={24} color="#ffffff" />
                   <Text style={styles.commentCount}>{item.comments} Comments</Text>
                 </View>
               </View>
@@ -88,25 +91,28 @@ const CommunityScreen = ({ navigation }) => {
 };
 
 const styles = {
+  logoContainer: { alignItems: "center", marginBottom: 20 },
+  eyLogo: { width: 100, height: 50, resizeMode: "contain" },
   postContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: "#1a1a1a",
     padding: 15,
     marginVertical: 8,
     marginHorizontal: 10,
     borderRadius: 10,
     shadowColor: "#000",
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.3,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
   },
   user: {
     fontSize: 14,
-    color: "#555",
+    color: "#cccccc",
     marginBottom: 5,
   },
   title: {
     fontSize: 18,
     fontWeight: "bold",
+    color: "#ffffff",
     marginBottom: 8,
   },
   image: {
@@ -127,6 +133,7 @@ const styles = {
   voteCount: {
     marginHorizontal: 10,
     fontSize: 16,
+    color: "#ffffff",
   },
   commentSection: {
     flexDirection: "row",
@@ -135,6 +142,7 @@ const styles = {
   commentCount: {
     marginLeft: 5,
     fontSize: 16,
+    color: "#ffffff",
   },
 };
 

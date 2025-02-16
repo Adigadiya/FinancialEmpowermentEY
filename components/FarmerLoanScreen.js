@@ -15,7 +15,7 @@ const FarmerLoanScreen = () => {
     const fetchFarmerLoans = async () => {
         try {
             console.log("Fetching Farmer & Agriculture Loans..."); 
-            const response = await axios.get("http://172.20.10.2:5000/api/farmer-loans");
+            const response = await axios.get("http://192.168.60.136:5000/api/farmer-loans");
     
             console.log("API Response:", response.data);
     

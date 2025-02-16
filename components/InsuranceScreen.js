@@ -15,7 +15,7 @@ const InsuranceScreen = () => {
     const fetchInsurancePlans = async () => {
         try {
             console.log("Fetching Insurance Plans...");
-            const response = await axios.get("http://172.20.10.2:5000/api/insurance");
+            const response = await axios.get("http://192.168.60.136:5000/api/insurance");
     
             console.log("API Response:", response.data);
     

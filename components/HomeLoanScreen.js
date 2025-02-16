@@ -15,7 +15,7 @@ const HomeLoanScreen = () => {
     const fetchHomeLoans = async () => {
         try {
             console.log("Fetching Home Loans..."); // ✅ Debugging Log
-            const response = await axios.get("http://172.20.10.2:5000/api/home-loans");
+            const response = await axios.get("http://192.168.60.136:5000/api/home-loans");
     
             console.log("API Response:", response.data); // ✅ Debugging Log
     

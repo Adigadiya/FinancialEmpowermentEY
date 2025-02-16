@@ -21,6 +21,9 @@ export default {
         backgroundColor: "#ffffff"
       }
     },
+    "plugins": [
+    "expo-video"
+  ],
     web: { favicon: "./assets/favicon.png" },
     extra: {
       OPENAI_API_KEY: process.env.OPENAI_API_KEY

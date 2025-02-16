@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'; 
-import HomeLoanScreen from "./components/HomeLoanScreen"; // Adjust path if needed
+import HomeLoanScreen from "./components/HomeLoanScreen"; 
 import FarmerLoanScreen from "./components/FarmerLoanScreen"; 
 import BusinessLoanScreen from "./components/BusinessLoanScreen";
 import InvestmentScreen from "./components/InvestmentScreen";
@@ -24,8 +24,9 @@ const Stack = createNativeStackNavigator();
 
 const CommunityNavigator=()=>(
   <Stack.Navigator>
-    <Stack.Screen name='CommunityScreen' component={CommunityScreen} options={{ title: "Financial Community" }} />
-    <Stack.Screen name="PostDetails" component={PostDetailsScreen} options={{ title: "Discussion" }} />
+    <Stack.Screen name='CommunityScreen' component={CommunityScreen} options={{ headerShown: false }} />
+    <Stack.Screen name="PostDetails" component={PostDetailsScreen} options={{ title: "Discussion",headerStyle: { backgroundColor: "#000" }, // Black header background
+    headerTitleStyle: { color: "#FFF" }  }} />
   </Stack.Navigator>
 );
 const LearnNavigator = () => (
@@ -38,13 +39,19 @@ const LearnNavigator = () => (
 const AppNavigator = () => (
   <Stack.Navigator>
     <Stack.Screen name="Marketplace" component={MarketplaceScreen} options={{ headerShown: false }} />
-    <Stack.Screen name="MySchemeScreen" component={MySchemeScreen} options={{ title: "Government Schemes", headerShown: true }} /> 
-    <Stack.Screen name="InvestmentScreen" component={InvestmentScreen} options={{ title: "Investments", headerShown: true }} /> 
-    <Stack.Screen name="HomeLoanScreen" component={HomeLoanScreen} options={{ title: "Home Loans" }} />
-    <Stack.Screen name="EducationLoanScreen" component={EducationLoanScreen} options={{ title: "Education Loans", headerShown: true }} /> 
-    <Stack.Screen name="FarmerLoanScreen" component={FarmerLoanScreen} options={{ title: "Farmer & Agriculture Loans" }} />
-    <Stack.Screen name="InsuranceScreen" component={InsuranceScreen} options={{ title: "Insurance Plans" }} />
-    <Stack.Screen name="BusinessLoanScreen" component={BusinessLoanScreen} options={{ title: "Business Loans" }} />
+    <Stack.Screen name="MySchemeScreen" component={MySchemeScreen} options={{ title: "Government Schemes", headerShown: true   }} /> 
+    <Stack.Screen name="InvestmentScreen" component={InvestmentScreen} options={{ title: "Investments", headerShown: true , headerStyle: { backgroundColor: "#000" }, // Black header background
+    headerTitleStyle: { color: "#FFF" }} }/> 
+    <Stack.Screen name="HomeLoanScreen" component={HomeLoanScreen} options={{ title: "Home Loans" ,headerStyle: { backgroundColor: "#000" }, // Black header background
+    headerTitleStyle: { color: "#FFF" }}} />
+    <Stack.Screen name="EducationLoanScreen" component={EducationLoanScreen} options={{ title: "Education Loans", headerShown: true,headerStyle: { backgroundColor: "#000" }, // Black header background
+    headerTitleStyle: { color: "#FFF" } }} /> 
+    <Stack.Screen name="FarmerLoanScreen" component={FarmerLoanScreen} options={{ title: "Farmer & Agriculture Loans" ,headerStyle: { backgroundColor: "#000" }, // Black header background
+    headerTitleStyle: { color: "#FFF" }}} />
+    <Stack.Screen name="InsuranceScreen" component={InsuranceScreen} options={{ title: "Insurance Plans",headerStyle: { backgroundColor: "#000" }, // Black header background
+    headerTitleStyle: { color: "#FFF" } }} />
+    <Stack.Screen name="BusinessLoanScreen" component={BusinessLoanScreen} options={{ title: "Business Loans" ,headerStyle: { backgroundColor: "#000" }, // Black header background
+    headerTitleStyle: { color: "#FFF" }}} />
 
     
   </Stack.Navigator>

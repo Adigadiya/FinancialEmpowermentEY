@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { 
-    View, Text, TouchableOpacity, FlatList, ActivityIndicator, StyleSheet, Image 
+    View, Text, TouchableOpacity, FlatList, ActivityIndicator, StyleSheet, Image, Button 
 } from "react-native";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { useNavigation } from "@react-navigation/native";
-import { Ionicons } from "@expo/vector-icons"; // ✅ Import Icons
+import { Ionicons } from "@expo/vector-icons"; 
+import * as Speech from 'expo-speech';
+import VideoPlayer from "../components/VideoPlayer";
 import "../utils/i18n";
 
 const LearnScreen = () => {
@@ -19,7 +21,7 @@ const LearnScreen = () => {
     useEffect(() => {
         const fetchFAQs = async () => {
             try {
-                const response = await axios.get("http://172.20.10.2:5000/api/faqs");
+                const response = await axios.get("http://192.168.60.136:5000/api/faqs");
                 setFaqs(response.data);
                 setLoading(false);
             } catch (error) {
@@ -30,12 +32,15 @@ const LearnScreen = () => {
         fetchFAQs();
     }, []);
 
+    const speakText = (text) => {
+        Speech.speak(text, { language: currentLanguage });
+    };
+
     return (
         <View style={styles.container}>
-            {/* 🟡 Header with Logo */}
+            {/* Header with Logo */}
             <View style={styles.header}>
                 <Image source={require("../assets/Ey.jpg")} style={styles.logo} />
-                
             </View>
 
             {loading ? (
@@ -53,7 +58,6 @@ const LearnScreen = () => {
                                 <Text style={styles.question}>
                                     {item.question?.[currentLanguage] || item.question?.en || "N/A"}
                                 </Text>
-                                {/* 🔽🔼 Arrow Icon */}
                                 <Ionicons 
                                     name={expandedIndex === index ? "chevron-up-outline" : "chevron-down-outline"} 
                                     size={24} 
@@ -66,10 +70,17 @@ const LearnScreen = () => {
                                     <Text style={styles.answer}>
                                         {item.shortAnswer?.[currentLanguage] || item.shortAnswer?.en || "N/A"}
                                     </Text>
+                                    
+                                
+      {/* Example YouTube video: Replace "dQw4w9WgXcQ" with your video ID */}
+      <VideoPlayer videoId="xR1BHEynXgA" />
+
+    
                                     <TouchableOpacity 
-                                        onPress={() => navigation.navigate("FAQDetailScreen", { faq: item })}
+                                        onPress={() => navigation.navigate("BlogDetailScreen", { faq: item })}
                                     >
-                                        <Text style={styles.readMore}>{t("read_in_detail")}</Text>
+                                       <Text style={styles.readMore}>{t("read_in_detail")}</Text>
+
                                     </TouchableOpacity>
                                 </>
                             )}
@@ -78,7 +89,7 @@ const LearnScreen = () => {
                 />
             )}
 
-            {/* 🌍 Language Switcher */}
+            {/* Language Switcher */}
             <View style={styles.languageSwitcher}>
                 <TouchableOpacity onPress={() => i18n.changeLanguage("en")} style={styles.langButton}>
                     <Text style={styles.langText}>🇬🇧 English</Text>
@@ -93,46 +104,13 @@ const LearnScreen = () => {
 
 const styles = StyleSheet.create({
     container: { flex: 1, padding: 20, backgroundColor: "#000" },
-
-    // 🟡 Header Styling
-    header: { 
-        flexDirection: "row", 
-        alignItems: "center", 
-        justifyContent: "center", 
-        marginBottom: 20 
-    },
-    logo: { width: 50, height: 50,top:50,marginBottom:50, marginRight: 10 },
-    headerText: { fontSize: 24, fontWeight: "bold", color: "#FFD700" },
-
-    // 🟡 FAQ Cards
-    card: { 
-        backgroundColor: "#1c1c1e", 
-        padding: 15, 
-        borderRadius: 10, 
-        marginVertical: 8, 
-        borderWidth: 1, 
-        borderColor: "#FFD700" 
-    },
-
-    // 🔽🔼 Arrow and Question Layout
-    questionRow: { 
-        flexDirection: "row", 
-        justifyContent: "space-between", 
-        alignItems: "center" 
-    },
-    
+    header: { flexDirection: "row", alignItems: "center", justifyContent: "center", marginBottom: 20 },
+    logo: { width: 50, height: 50, marginBottom: 50, marginRight: 10 },
+    card: { backgroundColor: "#1c1c1e", padding: 15, borderRadius: 10, marginVertical: 8, borderWidth: 1, borderColor: "#FFD700" },
+    questionRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
     question: { fontSize: 18, fontWeight: "bold", color: "#FFD700" },
     answer: { fontSize: 14, color: "#DDD", marginTop: 5 },
-
-    readMore: { 
-        fontSize: 14, 
-        color: "#FFC107", 
-        fontWeight: "bold", 
-        textDecorationLine: "underline", 
-        marginTop: 5 
-    },
-
-    // 🌍 Language Switcher
+    readMore: { fontSize: 14, color: "#FFC107", fontWeight: "bold", textDecorationLine: "underline", marginTop: 5 },
     languageSwitcher: { flexDirection: "row", justifyContent: "center", marginTop: 20 },
     langButton: { marginHorizontal: 5, padding: 10, backgroundColor: "#FFC107", borderRadius: 5 },
     langText: { fontSize: 16, fontWeight: "bold", color: "#000" }
