@@ -32,7 +32,8 @@ const CommunityNavigator=()=>(
 const LearnNavigator = () => (
   <Stack.Navigator>
     <Stack.Screen name="LearnScreen" component={LearnScreen} options={{ headerShown: false }} />
-    <Stack.Screen name="BlogDetailScreen" component={BlogDetailScreen} options={{ headerShown: false }} />
+    <Stack.Screen name="BlogDetailScreen" component={BlogDetailScreen} options={{ headerShown: true, title: "Discussion",headerStyle: { backgroundColor: "#000" }, // Black header background
+    headerTitleStyle: { color: "#FFF" }   }} />
   </Stack.Navigator>
 );
 

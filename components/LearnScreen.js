@@ -73,7 +73,7 @@ const LearnScreen = () => {
                                     
                                 
       {/* Example YouTube video: Replace "dQw4w9WgXcQ" with your video ID */}
-      <VideoPlayer videoId="xR1BHEynXgA" />
+      <VideoPlayer videoId="DNYCgsyOAW4" />
 
     
                                     <TouchableOpacity 
