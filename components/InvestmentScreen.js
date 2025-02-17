@@ -15,7 +15,7 @@ const InvestmentScreen = () => {
     const fetchInvestments = async () => {
         try {
             console.log("Fetching Investment Data...");
-            const response = await axios.get("http://192.168.60.136:5000/api/investments");
+            const response = await axios.get("https://dhansangini-backend.onrender.com/api/investments");
 
             console.log("API Response:", response.data);
 

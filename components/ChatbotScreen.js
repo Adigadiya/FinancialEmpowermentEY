@@ -7,8 +7,8 @@ import axios from 'axios';
 import Constants from 'expo-constants';
 import LottieView from 'lottie-react-native';
 
-
 const OPENAI_API_KEY = Constants.expoConfig.extra?.OPENAI_API_KEY || '';
+
 
 
 const ChatbotScreen = () => {
@@ -24,6 +24,7 @@ const ChatbotScreen = () => {
     flatListRef.current?.scrollToEnd({ animated: true });
   }, [messages]);
 
+  
   const sendMessageToOpenAI = async (message) => {
     try {
       const response = await axios.post('https://api.openai.com/v1/chat/completions', {
@@ -32,7 +33,8 @@ const ChatbotScreen = () => {
       }, {
         headers: { Authorization: `Bearer ${OPENAI_API_KEY}` },
       });
-
+      
+      
       return response.data.choices[0].message.content;
     } catch (error) {
       console.error('Error fetching response:', error);

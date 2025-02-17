@@ -15,7 +15,7 @@ const EducationLoanScreen = () => {
     const fetchEducationLoans = async () => {
         try {
             console.log("Fetching Education Loans..."); 
-            const response = await axios.get("http://192.168.60.136:5000/api/education-loans");
+            const response = await axios.get("https://dhansangini-backend.onrender.com/api/education-loans");
 
             console.log("API Response:", response.data); 
 

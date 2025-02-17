@@ -30,7 +30,7 @@ const FraudDetectionScreen = () => {
     Keyboard.dismiss();
 
     try {
-      const response = await axios.post("http://192.168.60.136:8082/check-fraud", {
+      const response = await axios.post("https://dhansangini-backend-frauddetection.onrender.com/check-fraud", {
         schemeName,
         description,
       });

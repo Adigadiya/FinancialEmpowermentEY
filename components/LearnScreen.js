@@ -21,7 +21,7 @@ const LearnScreen = () => {
     useEffect(() => {
         const fetchFAQs = async () => {
             try {
-                const response = await axios.get("http://192.168.60.136:5000/api/faqs");
+                const response = await axios.get("https://dhansangini-backend.onrender.com/api/faqs");
                 setFaqs(response.data);
                 setLoading(false);
             } catch (error) {
