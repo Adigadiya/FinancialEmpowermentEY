@@ -11,10 +11,10 @@ mongoose.connect(process.env.MONGO_URI, {
 
 const seedInsurance = async () => {
     try {
-        await Insurance.deleteMany(); // Clear old data
+       
 
         const insuranceData = [
-            // 🔹 Life Insurance
+          
             {
                 category: "Life Insurance",
                 name: { en: "LIC Jeevan Anand", hi: "एलआईसी जीवन आनंद" },
@@ -24,10 +24,10 @@ const seedInsurance = async () => {
                 },
                 amount: { en: "₹10 Lakh - ₹50 Lakh", hi: "₹10 लाख - ₹50 लाख" },
                 premium: { en: "₹500/month onwards", hi: "₹500/माह से शुरू" },
-                link: "https://licindia.in",
-                image: "https://example.com/lic-jeevan-anand.png"
+                link: "https://www.policybazaar.com/",
+                image: "https://th.bing.com/th/id/OIP.U2UDTSL9HObqDp2IVYgyLgHaE7?w=248&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7"
             },
-            // 🔹 Health Insurance
+         
             {
                 category: "Health Insurance",
                 name: { en: "Ayushman Bharat Yojana", hi: "आयुष्मान भारत योजना" },
@@ -37,10 +37,10 @@ const seedInsurance = async () => {
                 },
                 amount: { en: "₹5 Lakh Coverage", hi: "₹5 लाख कवरेज" },
                 premium: { en: "Free for eligible families", hi: "योग्य परिवारों के लिए मुफ्त" },
-                link: "https://pmjay.gov.in",
-                image: "https://example.com/ayushman-bharat.png"
+                link: "https://www.policybazaar.com/",
+                image: "https://th.bing.com/th/id/OIP.EIwSb8q8SxjjwshtWPDt2QHaHa?w=181&h=181&c=7&r=0&o=5&dpr=1.5&pid=1.7"
             },
-            // 🔹 Crop Insurance
+           
             {
                 category: "Crop Insurance",
                 name: { en: "Pradhan Mantri Fasal Bima Yojana", hi: "प्रधानमंत्री फसल बीमा योजना" },
@@ -50,8 +50,8 @@ const seedInsurance = async () => {
                 },
                 amount: { en: "Up to ₹2 Lakh", hi: "₹2 लाख तक" },
                 premium: { en: "2% of the insured amount", hi: "बीमित राशि का 2%" },
-                link: "https://pmfby.gov.in",
-                image: "https://example.com/pmfby.png"
+                link: "https://www.policybazaar.com/",
+                image: "https://th.bing.com/th/id/OIP.SwmqaOpuXf7pfa_7_zrSzwHaE8?w=248&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7"
             }
         ];
 

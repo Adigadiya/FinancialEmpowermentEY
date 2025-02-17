@@ -22,5 +22,4 @@ const homeLoanSchema = new mongoose.Schema({
     image: { type: String, required: true }
 });
 
-// ✅ Correct Export
 module.exports = mongoose.model("HomeLoan", homeLoanSchema);

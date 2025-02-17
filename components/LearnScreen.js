@@ -104,8 +104,13 @@ const LearnScreen = () => {
 
 const styles = StyleSheet.create({
     container: { flex: 1, padding: 20, backgroundColor: "#000" },
-    header: { flexDirection: "row", alignItems: "center", justifyContent: "center", marginBottom: 20 },
-    logo: { width: 50, height: 50, marginBottom: 50, marginRight: 10 },
+    header: { flexDirection: "row", alignItems: "center",   justifyContent: "center",paddingVertical: 20,  // Adds spacing above and below the logo
+        marginTop: 20,  },
+    logo: {     width: 100, 
+        height: 50, 
+        resizeMode: "contain"
+    },
+     
     card: { backgroundColor: "#1c1c1e", padding: 15, borderRadius: 10, marginVertical: 8, borderWidth: 1, borderColor: "#FFD700" },
     questionRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
     question: { fontSize: 18, fontWeight: "bold", color: "#FFD700" },

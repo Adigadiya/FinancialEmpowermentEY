@@ -14,6 +14,7 @@ const InvestmentSchema = new mongoose.Schema({
         en: { type: String, required: true },
         hi: { type: String, required: true }
     },
+    image: { type: String, required: true },
     link: { type: String, required: true }
 });
 

@@ -11,7 +11,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 const seedInvestments = async () => {
     try {
-        await Investment.deleteMany(); // Clear existing data
+        await Investment.deleteMany(); 
 
         const investments = [
             {
@@ -22,7 +22,8 @@ const seedInvestments = async () => {
                 },
                 amount: 50,
                 risk: { en: "Low", hi: "कम" },
-                link: "https://example.com/savings"
+                image: "https://th.bing.com/th/id/OIP.XzkIzYEZRP2W49cTFMJ0IAHaEK?w=294&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+                link: "https://www.investing.com/"
             },
             {
                 name: { en: "Recurring Deposit", hi: "आवर्ती जमा" },
@@ -32,7 +33,8 @@ const seedInvestments = async () => {
                 },
                 amount: 100,
                 risk: { en: "Medium", hi: "मध्यम" },
-                link: "https://example.com/recurring-deposit"
+                image: "https://th.bing.com/th/id/OIP._zpw0HctzV28P4-F9-ASsQHaDt?w=328&h=174&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+                link: "https://www.investing.com/"
             },
             {
                 name: { en: "Mutual Funds", hi: "म्यूचुअल फंड्स" },
@@ -42,7 +44,8 @@ const seedInvestments = async () => {
                 },
                 amount: 500,
                 risk: { en: "High", hi: "उच्च" },
-                link: "https://example.com/mutual-funds"
+                image: "https://th.bing.com/th/id/OIP.4vfWMv9mcBsQ8N29HsICaQHaE8?w=232&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+                link: "https://www.investing.com/"
             }
         ];
 

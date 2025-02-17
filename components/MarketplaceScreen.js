@@ -18,12 +18,12 @@ const MarketplaceScreen = () => {
 
     return (
         <ScrollView style={styles.container}>
-            {/* EY Logo */}
+            
             <View style={styles.logoContainer}>
                 <Image source={require("../assets/Ey.jpg")} style={styles.eyLogo} />
             </View>
             
-            {/* 🏡 Loans Section */}
+            
             <Text style={styles.title}>{t("loans")}</Text>
             <View style={styles.loanGrid}>
                 {loans.map((loan) => (
@@ -36,12 +36,12 @@ const MarketplaceScreen = () => {
                 ))}
             </View>
 
-            {/* 📜 Explore Government Schemes */}
+          
             <TouchableOpacity style={styles.schemeButton} onPress={() => navigation.navigate("MySchemeScreen")}>
                 <Text style={styles.schemeText}>📜 {t("explore_schemes")}</Text>
             </TouchableOpacity>
 
-            {/* 📈 Invest & Insurance Section */}
+           
             <Text style={styles.heading}>{t("invest_insurance")}</Text>
             <View style={styles.rowContainer}>
                 <TouchableOpacity style={styles.box} onPress={() => navigation.navigate("InvestmentScreen")}>
@@ -54,7 +54,19 @@ const MarketplaceScreen = () => {
                     <Text style={styles.boxText}>{t("insurance")}</Text>
                 </TouchableOpacity>
             </View>
-            {/* 🌍 Language Switcher */}
+            
+            <Text style={styles.title}>{t("fraud_prevention")}</Text>
+            <View style={styles.fraudContainer}>
+                <TouchableOpacity style={styles.box} onPress={() => navigation.navigate("FraudDetectionScreen")}>  
+                    <Ionicons name="shield-outline" size={40} color="#FFD700" />
+                    <Text style={styles.boxText}>{t("Fraud_Detection_Tool")}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.box}  onPress={() => navigation.navigate("FraudReportScreen")}>  
+                    <Ionicons name="warning-outline" size={40} color="#FFD700" />
+                    <Text style={styles.boxText}>{t("Fraud_Report")}</Text>
+                </TouchableOpacity>
+            </View>
+           
             <View style={styles.languageSwitcher}>
                 <TouchableOpacity onPress={() => i18n.changeLanguage("en")} style={styles.langButton}>
                     <Text style={styles.langText}>🇬🇧 English</Text>
@@ -69,12 +81,15 @@ const MarketplaceScreen = () => {
 
 const styles = StyleSheet.create({
     container: { flex: 1, padding: 20, backgroundColor: "#000" },
-    logoContainer: { alignItems: "center", marginBottom: 20 },
-    eyLogo: { width: 100, height: 50, resizeMode: "contain",marginTop:100,marginBottom:-80 },
-    title: { fontSize: 26, fontWeight: "bold", textAlign: "center", color: "#FFD700", marginBottom: 20, top:60 },
 
-    /* 📌 Loan Section */
-    loanGrid: { flexDirection: "row", marginTop:38, flexWrap: "wrap", justifyContent: "space-between" },
+    logoContainer: { top:-50,alignItems: "center", marginBottom: 20 },
+    eyLogo: { width: 100, height: 50, resizeMode: "contain", marginTop: 100, marginBottom: -80 },
+
+   
+    title: { fontSize: 26, fontWeight: "bold", textAlign: "center", color: "#FFD700", marginBottom: 20, marginTop: 20 ,letterSpacing: 1,},
+
+    
+    loanGrid: { flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", marginTop: -10 },
     loanButton: {
         width: "48%",
         flexDirection: "column",
@@ -100,9 +115,9 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: "#FFD700"
     },
-    loanText: { fontSize: 18, fontWeight: "bold", color: "#FFD700", textAlign: "center" },
+    loanText: { fontSize: 18, fontWeight: "bold", color: "#FFD700", textAlign: "center", },
 
-    /* 📜 Government Schemes */
+  
     schemeButton: {
         backgroundColor: "#FFC107",
         padding: 15,
@@ -118,8 +133,8 @@ const styles = StyleSheet.create({
     },
     schemeText: { fontSize: 18, fontWeight: "bold", color: "#000" },
 
-    /* 📈 Investment & Insurance Boxes */
-    rowContainer: { flexDirection: "row", justifyContent: "space-between", marginTop: -10 },
+    
+    rowContainer: { flexDirection: "row", justifyContent: "space-between", marginTop: 10 },
     box: {
         width: "48%",
         backgroundColor: "#222",
@@ -137,7 +152,25 @@ const styles = StyleSheet.create({
     },
     boxText: { fontSize: 18, fontWeight: "bold", color: "#FFD700", textAlign: "center", marginTop: 10 },
 
-    /* 🌍 Language Switcher */
+    
+    fraudContainer: { flexDirection: "row", justifyContent: "space-between", marginTop: -5 },
+    fraudButton: {
+        width: "48%",
+        backgroundColor: "#222",
+        paddingVertical: 30,
+        borderRadius: 15,
+        alignItems: "center",
+        justifyContent: "center",
+        shadowColor: "#FFD700",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        elevation: 5,
+        borderWidth: 2,
+        borderColor: "#FFD700"
+    },
+
+    
     languageSwitcher: { flexDirection: "row", justifyContent: "center", marginTop: 20 },
     langButton: { marginHorizontal: 5, padding: 10, backgroundColor: "#FFC107", borderRadius: 5 },
     langText: { fontSize: 16, fontWeight: "bold", color: "#000" }

@@ -6,32 +6,33 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const posts = [
   {
     id: "1",
-    user: "r/FinanceTalks",
-    title: "Stock Market Trends for 2025",
-    image: "https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/3-remote-village-of-eng-tribe-in-mountains-near-kengtung-myanmar-cavan-images.jpg",
-    likes: 1200,
-    dislikes: 50,
-    comments: 300,
+    user: "r/JaySingh56",
+    title: "सरकारी योजना का पैसा मिल गया! अब गांव में छोटा बिज़नेस शुरू करूँगा 🙏🎉",
+    image: "https://www.shutterstock.com/image-photo/technology-people-concept-young-indian-260nw-1875718399.jpg",
+    likes: 95,
+    dislikes: 2,
+    comments: 20,
   },
   {
     id: "2",
-    user: "r/InvestmentTips",
-    title: "How to Save Money in Your 20s",
+    user: "r/Rani98",
+    title: "₹10,000 से डेयरी बिजनेस कैसे शुरू करें?",
     image: null,
-    likes: 800,
-    dislikes: 30,
-    comments: 120,
+    likes: 120,
+    dislikes: 4,
+    comments: 31,
   },
   {
     id: "3",
-    user: "r/CryptoWorld",
-    title: "Bitcoin Hits New High!",
-    image: "https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/3-remote-village-of-eng-tribe-in-mountains-near-kengtung-myanmar-cavan-images.jpg",
-    likes: 2500,
-    dislikes: 100,
-    comments: 600,
+    user: "r/KrishSahu76",
+    title: "मुझे ₹50,000 निवेश करने हैं, म्यूचुअल फंड बेहतर है या FD? ",
+    image: "https://th.bing.com/th/id/OIP.Zz10iJvdWueGSpogNGkuwAHaEK?w=307&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+    likes: 180,
+    dislikes: 0,
+    comments: 17,
   },
 ];
+
 
 const CommunityScreen = ({ navigation }) => {
   const [postData, setPostData] = useState(posts);

@@ -49,7 +49,7 @@ const InvestmentScreen = () => {
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (
                         <View style={styles.card}>
-                            <Image source={{ uri: item.image || "https://example.com/default.png" }} style={styles.image} />
+                            <Image source={{ uri: item.image  }} style={styles.image} />
                             <View style={styles.textContainer}>
                                 <Text style={styles.name}>
                                     {item.name?.[currentLanguage] || item.name?.en || "N/A"}
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
         elevation: 5
     },
 
-    textContainer: { flex: 1, marginRight: 10 },
+    textContainer: { flex: 1, marginRight: 10 ,marginLeft:10},
 
     name: { fontSize: 18, fontWeight: "bold", color: "#FFD700", marginBottom: 5 },
     description: { fontSize: 14, color: "#DDD", lineHeight: 20, marginBottom: 5 },

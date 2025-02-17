@@ -4,29 +4,90 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const initialComments = [
   {
-    id: '1',
-    username: 'Radhika',
-    comment: 'I think mutual funds are a great option!',
+    id: "1",
+    username: "Radhika",
+    comment: "Mujhe lagta hai mutual funds ek accha option hai! 📈",
     upvotes: 10,
     downvotes: 2,
     replies: [
       {
-        id: '1-1',
-        username: 'Lakshmi',
-        comment: 'Which one do you recommend?',
+        id: "1-1",
+        username: "Lakshmi",
+        comment: "Kaunsa mutual fund recommend karogi? SIP ya lump sum? 🤔",
         upvotes: 5,
+        downvotes: 1,
+        replies: [
+          {
+            id: "1-1-1",
+            username: "Vikas",
+            comment: "Maine SBI Bluechip Fund me invest kiya hai, kaafi acha perform kar raha hai! 🔥",
+            upvotes: 7,
+            downvotes: 1,
+            replies: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "2",
+    username: "Raj",
+    comment: "Long-term investment karna zaroori hai, wealth build karne ke liye! 📊",
+    upvotes: 15,
+    downvotes: 3,
+    replies: [
+      {
+        id: "2-1",
+        username: "Ankit",
+        comment: "हां, अगर सही प्लानिंग हो तो SIP और PPF जैसे options बेहतर हो सकते हैं! 💰",
+        upvotes: 10,
+        downvotes: 1,
+        replies: [],
+      },
+    ],
+  },
+  
+  {
+    id: "3",
+    username: "Suresh",
+    comment: "FD bhi ek safe option hai, agar risk lena pasand nahi hai toh! 💰",
+    upvotes: 12,
+    downvotes: 1,
+    replies: [
+      {
+        id: "3-1",
+        username: "Meera",
+        comment: "Haan maine bhi FD kiya hai, interest rate 7.5% tak mil raha hai! 👍",
+        upvotes: 8,
+        downvotes: 0,
+        replies: [],
+      },
+      {
+        id: "3-2",
+        username: "Arjun",
+        comment: "Agar safe investment chahiye toh PPF bhi ek acha option ho sakta hai!",
+        upvotes: 6,
         downvotes: 1,
         replies: [],
       },
     ],
   },
   {
-    id: '2',
-    username: 'Raj',
-    comment: 'Crypto is too volatile, but rewards are huge!',
-    upvotes: 15,
-    downvotes: 3,
-    replies: [],
+    id: "4",
+    username: "Pooja",
+    comment: "Mutual funds vs FD – dono me invest karna sahi rahega balance ke liye! ✅",
+    upvotes: 14,
+    downvotes: 2,
+    replies: [
+      {
+        id: "4-1",
+        username: "Amit",
+        comment: "Haan, mutual funds long-term growth ke liye aur FD safe returns ke liye! Best combo! 🏦📊",
+        upvotes: 10,
+        downvotes: 0,
+        replies: [],
+      },
+    ],
   },
 ];
 
@@ -141,7 +202,7 @@ export default function PostDetailsScreen({ route }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 12, backgroundColor: '#1A1A2E' },
+  container: { flex: 1, padding: 12, backgroundColor: '#000' },
   title: { fontSize: 16, fontWeight: 'bold', color: '#FFD700', marginVertical: 5 },
   postImage: { width: '100%', height: 200, borderRadius: 8, marginBottom: 10 },
   commentContainer: { padding: 10, borderBottomWidth: 1, borderBottomColor: '#FFD700' },
@@ -151,7 +212,15 @@ const styles = StyleSheet.create({
   voteText: { color: '#FFD700', marginHorizontal: 5 },
   replyText: { marginLeft: 10, color: '#FFD700' },
   replyInputContainer: { flexDirection: 'row', alignItems: 'center', marginTop: 5 },
-  input: { flex: 1, borderWidth: 1, borderColor: '#FFD700', padding: 8, borderRadius: 5, color: '#FFF' },
+  input: {
+    flex: 1, 
+    borderWidth: 1, 
+    borderColor: '#FFD700', 
+    padding: 10, 
+    borderRadius: 5, 
+    color: '#FFF', 
+    },
+
   commentButton: { backgroundColor: '#FFD700', padding: 8, borderRadius: 5 },
   toggleRepliesText: { color: '#FFD700', marginTop: 5, fontSize: 14 },
 });

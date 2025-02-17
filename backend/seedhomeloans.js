@@ -19,7 +19,7 @@ const homeLoans = [
         }, 
         amount: { en: "Up to ₹6 Lakh", hi: "₹6 लाख तक" },
         interestRate: { en: "6.5% per annum", hi: "6.5% प्रति वर्ष" },
-        image: "https://example.com/pmay-g.png",
+        image: "https://4.bp.blogspot.com/-b31Z8dvrLB0/W4awhD1k6jI/AAAAAAACXno/4xIxoNZvkJcEmJQ7lKDEO6rvXik_g2UjwCEwYBhgL/s1600/mygov_1472668171222745.jpg",
         link: "https://pmayg.nic.in/"
     },
     {
@@ -31,7 +31,7 @@ const homeLoans = [
         },
         amount: { en: "Up to ₹12 Lakh", hi: "₹12 लाख तक" },
         interestRate: { en: "6.5% per annum", hi: "6.5% प्रति वर्ष" },
-        image: "https://example.com/pmay-u.png",
+        image: "https://th.bing.com/th/id/OIP.MJhK0VeXxwXDHdwbu7a10AHaEq?rs=1&pid=ImgDetMain",
         link: "https://pmaymis.gov.in/"
     },
     {
@@ -43,11 +43,10 @@ const homeLoans = [
         },
         amount: { en: "Up to ₹3 Lakh", hi: "₹3 लाख तक" },
         interestRate: { en: "4% per annum", hi: "4% प्रति वर्ष" },
-        image: "https://example.com/rhiss.png",
+        image: "https://computergyaan.in/wp-content/uploads/2022/06/1-16.jpg",
         link: "https://nhb.org.in/"
     },
     
-    // ✅ Bank & Financial Institution Home Loans
     {
         category: "Bank",
         name: { en: "SBI Regular Home Loan", hi: "SBI रेगुलर होम लोन" },
@@ -57,8 +56,8 @@ const homeLoans = [
         },
         amount: { en: "Up to ₹50 Lakh", hi: "₹50 लाख तक" },
         interestRate: { en: "6.5% per annum", hi: "6.5% प्रति वर्ष" },
-        image: "https://example.com/sbi-loan.png",
-        link: "https://sbi.co.in/home-loans"
+        image: "https://thumbor.forbes.com/thumbor/fit-in/x/https://www.forbes.com/advisor/in/wp-content/uploads/2023/01/SBI-Logo-new-removebg-preview.png",
+        link: "https://www.onlinesbi.sbi/"
     },
     {
         category: "Bank",
@@ -69,8 +68,8 @@ const homeLoans = [
         },
         amount: { en: "Up to ₹75 Lakh", hi: "₹75 लाख तक" },
         interestRate: { en: "8% per annum", hi: "8% प्रति वर्ष" },
-        image: "https://example.com/hdfc-loan.png",
-        link: "https://hdfc.com/home-loans"
+        image: "https://th.bing.com/th/id/OIP.mEn1lVK_39-aGX5v0h6mAgHaF6?w=196&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+        link: "https://www.hdfc.com/housing-loans/home-loans?utm_campaign=HDFC_Bank&utm_medium=personal-popular-home-loan"
     },
     {
         category: "Bank",
@@ -81,11 +80,10 @@ const homeLoans = [
         },
         amount: { en: "Up to ₹60 Lakh", hi: "₹60 लाख तक" },
         interestRate: { en: "7.5% per annum", hi: "7.5% प्रति वर्ष" },
-        image: "https://example.com/icici-loan.png",
-        link: "https://icicibank.com/home-loans"
+        image: "https://th.bing.com/th/id/OIP.4PVHQOcXGrOr2WCHqJb-qAHaHa?w=150&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+        link: "https://www.hdfc.com/housing-loans/home-loans?utm_campaign=HDFC_Bank&utm_medium=personal-popular-home-loan"
     },
     
-    // ✅ Microfinance & Cooperative Housing Loans
     {
         category: "Microfinance",
         name: { en: "SEWA Housing Finance", hi: "SEWA हाउसिंग फाइनेंस" },
@@ -95,8 +93,8 @@ const homeLoans = [
         },
         amount: { en: "Up to ₹5 Lakh", hi: "₹5 लाख तक" },
         interestRate: { en: "9% per annum", hi: "9% प्रति वर्ष" },
-        image: "https://example.com/sewa-loan.png",
-        link: "https://sewahousing.org/"
+        image: "https://th.bing.com/th/id/OIP.lCztplpJ7ULW60K7aq4YjAHaD4?rs=1&pid=ImgDetMain",
+        link: "https://www.hdfc.com/housing-loans/home-loans?utm_campaign=HDFC_Bank&utm_medium=personal-popular-home-loan"
     },
     {
         category: "Microfinance",
@@ -107,8 +105,8 @@ const homeLoans = [
         },
         amount: { en: "Up to ₹7 Lakh", hi: "₹7 लाख तक" },
         interestRate: { en: "8.5% per annum", hi: "8.5% प्रति वर्ष" },
-        image: "https://example.com/gruh-loan.png",
-        link: "https://bandhanbank.com/"
+        image: "https://th.bing.com/th/id/OIP.bx59U1LXvZVUToXJBzwpcgHaEi?w=294&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+        link: "https://www.hdfc.com/housing-loans/home-loans?utm_campaign=HDFC_Bank&utm_medium=personal-popular-home-loan"
     }
 ];
 

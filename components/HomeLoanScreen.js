@@ -14,14 +14,14 @@ const HomeLoanScreen = () => {
 
     const fetchHomeLoans = async () => {
         try {
-            console.log("Fetching Home Loans..."); // ✅ Debugging Log
+            console.log("Fetching Home Loans..."); 
             const response = await axios.get("http://192.168.60.136:5000/api/home-loans");
     
-            console.log("API Response:", response.data); // ✅ Debugging Log
+            console.log("API Response:", response.data); 
     
             if (!response.data || response.data.length === 0) {
                 console.warn("⚠️ No home loans found!");
-                setLoans([]); // Handle empty data case
+                setLoans([]); 
                 setLoading(false);
                 return;
             }
@@ -48,10 +48,9 @@ const HomeLoanScreen = () => {
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (
                         <View style={styles.card}>
-                            {/* 🖼 Image on the Right */}
+                            
                             <Image source={{ uri: item.image }} style={styles.loanImage} />
                             
-                            {/* 📃 Loan Details */}
                             <View style={styles.textContainer}>
                                 <Text style={styles.name}>
                                     {item.name?.[currentLanguage] || item.name?.en || "N/A"}
@@ -66,7 +65,6 @@ const HomeLoanScreen = () => {
                                     {item.description?.[currentLanguage] || item.description?.en || "N/A"}
                                 </Text>
                                 
-                                {/* 🔗 See More (Bottom Right) */}
                                 <TouchableOpacity onPress={() => Linking.openURL(item.link)}>
                                     <Text style={styles.seeMore}>{t("see_more")}</Text>
                                 </TouchableOpacity>
@@ -75,8 +73,6 @@ const HomeLoanScreen = () => {
                     )}
                 />
             )}
-
-            {/* 🌍 Language Switcher */}
             <View style={styles.languageSwitcher}>
                 <TouchableOpacity onPress={() => i18n.changeLanguage("en")} style={styles.langButton}>
                     <Text style={styles.langText}>🇬🇧 English</Text>
@@ -93,7 +89,7 @@ const styles = StyleSheet.create({
     container: { flex: 1, padding: 20, backgroundColor: "#000" },
 
     card: { 
-        flexDirection: "row-reverse", // ✅ Moves image to the right
+        flexDirection: "row-reverse",
         alignItems: "center",
         backgroundColor: "#1c1c1e", 
         padding: 15, 
@@ -118,18 +114,17 @@ const styles = StyleSheet.create({
     amount: { fontSize: 14, color: "#EEE", marginBottom: 5 },
     interestRate: { fontSize: 14, color: "#EEE", marginBottom: 5 },
 
-    // ✅ "See More" moved to bottom right
     seeMore: { 
         fontSize: 14, 
         color: "#FFC107", 
         fontWeight: "bold", 
         textDecorationLine: "underline",
-        alignSelf: "flex-end",  // ✅ Aligns to the right
+        alignSelf: "flex-end",  
         marginTop: 5
     },
 
     loanImage: { 
-        width: 90,  // Slightly bigger
+        width: 90,  
         height: 90, 
         borderRadius: 10, 
         borderWidth: 1, 

@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   quizHeading: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#fff',  // Dark Blue for quiz heading (EY theme)
+    color: '#fff', 
     marginBottom: 10,
   },
   description: {

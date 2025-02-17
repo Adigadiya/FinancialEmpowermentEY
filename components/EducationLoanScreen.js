@@ -71,7 +71,7 @@ const EducationLoanScreen = () => {
                 />
             )}
 
-            {/* 🌍 Language Switcher */}
+            
             <View style={styles.languageSwitcher}>
                 <TouchableOpacity onPress={() => i18n.changeLanguage("en")} style={styles.langButton}>
                     <Text style={styles.langText}>🇬🇧 English</Text>

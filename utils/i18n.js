@@ -4,7 +4,7 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
-      loans: "Loans",
+      loans: "LOANS",
       home_loan: "Home Loan",
       education_loan: "Education Loan",
       farmer_loan: "Farmer & Agriculture Loan",
@@ -14,7 +14,7 @@ const resources = {
       loading: "Loading...",
       min: "Min",
       risk: "Risk",
-      low: "Low",   // ✅ Added "Low"
+      low: "Low",   
        invest: "Invest",
       insurance: "Insurance",
       loan_amount: "Loan Amount",
@@ -32,8 +32,31 @@ const resources = {
   quiz_wrong: "Oops!",
   quiz_wrong_msg: "That's not correct. Try again next time!",
   submit_quiz: "Submit Answer",
-  no_data: "No data available."
-
+  no_data: "No data available.",
+  Fraud_Detection_Tool:" Fraud Detection Tool",
+  fraud_prevention:"FRAUD PREVENTION",
+  Fraud_Report:"Report Fraud",
+  investment_amount:"Investment amount",
+  investment_risk:"Investment risk",
+  title: 'Budgeting Calculator',
+  basicCalculator: 'Basic Calculator',
+  financialCalculator: 'Financial Calculator',
+  SI: 'Simple Interest',
+  CI: 'Compound Interest',
+  EMI: 'EMI',
+  Savings: 'Savings Account',
+  enterPrincipal: 'Enter Principal (P)',
+  enterRate: 'Enter Rate (R)',
+  enterTime: 'Enter Time (T)',
+  enterMonthlyDeposit: 'Enter Monthly Deposit',
+  calculateSI: 'Calculate SI',
+  calculateCI: 'Calculate CI',
+  calculateEMI: 'Calculate EMI',
+  calculateSavingsAccount: 'Calculate Savings Account',
+  clear: 'Clear',
+  result: 'Result: ',
+  error: 'Invalid Input',
+  switchLanguage: 'Switch Language'
     }
   },
   hi: {
@@ -46,6 +69,8 @@ const resources = {
       micro_investments: "सूक्ष्म निवेश के अवसर",
       explore_schemes: "सरकारी योजनाएँ देखें",
       loading: "लोड हो रहा है...",
+      Fraud_Detection_Tool: "धोखाधड़ी पहचान उपकरण",
+      fraud_prevention:"वित्तीय धोखाधड़ी सुरक्षा",
       min: "न्यूनतम",
       risk: "जोखिम",
       low: "कम"  ,
@@ -53,9 +78,32 @@ const resources = {
       invest: "निवेश",
       insurance: "बीमा",
       loan_amount: "ऋण राशि",
+      investment_amount :"निवेश राशि",
+investment_risk : "निवेश जोखिम",
       interest_rate: "ब्याज दर",
       see_more: "और देखें",
-       
+       Fraud_Report:"धोखाधड़ी की रिपोर्ट करें",
+       title: 'बजट कैलकुलेटर',
+       basicCalculator: 'बेसिक कैलकुलेटर',
+       financialCalculator: 'वित्तीय कैलकुलेटर',
+       SI: 'साधारण ब्याज',
+       CI: 'संयुग्म ब्याज',
+       EMI: 'ईएमआई',
+       Savings: 'बचत खाता',
+       enterPrincipal: 'प्रारंभिक राशि (P) दर्ज करें',
+       enterRate: 'ब्याज दर (R) दर्ज करें',
+       enterTime: 'समय (T) दर्ज करें',
+       enterMonthlyDeposit: 'मासिक जमा राशि दर्ज करें',
+       calculateSI: 'साधारण ब्याज की गणना करें',
+       calculateCI: 'संयुग्म ब्याज की गणना करें',
+       calculateEMI: 'ईएमआई की गणना करें',
+       calculateSavingsAccount: 'बचत खाता की गणना करें',
+       clear: 'साफ करें',
+       result: 'परिणाम: ',
+       error: 'अमान्य इनपुट',
+       switchLanguage: 'भाषा बदलें'
+   
+      
     }
   }
 };

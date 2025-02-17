@@ -119,7 +119,7 @@ const ChatbotScreen = () => {
         ref={flatListRef}
         data={messages}
         keyExtractor={(item) => item.id.toString()}
-        ListHeaderComponent={<View style={{ height: 60 }} />} // Adds spacing above the first message
+        ListHeaderComponent={<View style={{ height: 60 }} />}
         renderItem={({ item }) => (
           <View style={[styles.message, item.sender === 'bot' ? styles.botMessage : styles.userMessage]}>
             <Text style={styles.messageText}>{item.text}</Text>

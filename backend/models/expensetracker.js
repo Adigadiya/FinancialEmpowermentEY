@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 
-// ✅ Expense Schema
 const ExpenseSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-    category: { type: String, required: true }, // e.g., Food, Transport, Education
+    category: { type: String, required: true }, 
     amount: { type: Number, required: true },
     date: { type: Date, default: Date.now },
     description: { type: String },
@@ -11,7 +10,6 @@ const ExpenseSchema = new mongoose.Schema({
 
 const Expense = mongoose.model("Expense", ExpenseSchema);
 
-// ✅ Financial Goal Schema
 const FinancialGoalSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     goalName: { type: String, required: true },

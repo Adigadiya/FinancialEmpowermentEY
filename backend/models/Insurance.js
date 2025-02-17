@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const insuranceSchema = new mongoose.Schema({
-    category: { type: String, required: true }, // Life, Health, Crop, etc.
+    category: { type: String, required: true }, 
     name: {
         en: { type: String, required: true },
         hi: { type: String, required: true }
