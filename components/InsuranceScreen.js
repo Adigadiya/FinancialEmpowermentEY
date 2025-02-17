@@ -65,7 +65,6 @@ const InsuranceScreen = () => {
                 />
             )}
 
-            {/* 🌍 Language Switcher */}
             <View style={styles.languageSwitcher}>
                 <TouchableOpacity onPress={() => i18n.changeLanguage("en")} style={styles.langButton}>
                     <Text style={styles.langText}>🇬🇧 English</Text>
@@ -78,7 +77,6 @@ const InsuranceScreen = () => {
     );
 };
 
-// ✅ **Define Styles Here**
 const styles = StyleSheet.create({
     container: { flex: 1, padding: 20, backgroundColor: "#000" },
     card: { 

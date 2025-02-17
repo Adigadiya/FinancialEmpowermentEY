@@ -22,7 +22,7 @@ const FraudReportScreen = () => {
                 domStorageEnabled={true}
                 injectedJavaScript={customCSS}
                 startInLoadingState={true}
-                setSupportMultipleWindows={false}  // Prevents popups breaking the experience
+                setSupportMultipleWindows={false} 
             />
         </View>
     );
@@ -31,7 +31,7 @@ const FraudReportScreen = () => {
 const styles = StyleSheet.create({
     container: { 
         flex: 1, 
-        backgroundColor: "#000"  // ✅ Ensures background remains black
+        backgroundColor: "#000"  
     },
     webView: { 
         flex: 1 

@@ -48,7 +48,7 @@ const FarmerLoanScreen = () => {
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (
                         <View style={styles.card}>
-                            {/* 📝 Loan Details */}
+                            
                             <View style={styles.textContainer}>
                                 <Text style={styles.name}>
                                     {item.name?.[currentLanguage] || item.name?.en || "N/A"}
@@ -63,20 +63,17 @@ const FarmerLoanScreen = () => {
                                     {item.description?.[currentLanguage] || item.description?.en || "N/A"}
                                 </Text>
 
-                                {/* 🔗 "See More" button on bottom right */}
                                 <TouchableOpacity onPress={() => Linking.openURL(item.link)} style={styles.seeMoreContainer}>
                                     <Text style={styles.seeMore}>{t("see_more")}</Text>
                                 </TouchableOpacity>
                             </View>
 
-                            {/* 🖼 Image on the right */}
                             <Image source={{ uri: item.image }} style={styles.loanImage} />
                         </View>
                     )}
                 />
             )}
 
-            {/* 🌍 Language Switcher */}
             <View style={styles.languageSwitcher}>
                 <TouchableOpacity onPress={() => i18n.changeLanguage("en")} style={styles.langButton}>
                     <Text style={styles.langText}>🇬🇧 English</Text>
@@ -120,7 +117,7 @@ const styles = StyleSheet.create({
     interestRate: { fontSize: 14, color: "#EEE", marginBottom: 5 },
 
     seeMoreContainer: {
-        alignSelf: "flex-end", // Move to the bottom right
+        alignSelf: "flex-end", 
     },
     
     seeMore: { 

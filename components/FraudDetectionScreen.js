@@ -18,7 +18,7 @@ const FraudDetectionScreen = () => {
   const [schemeName, setSchemeName] = useState("");
   const [description, setDescription] = useState("");
   const [result, setResult] = useState(null);
-  const [language, setLanguage] = useState("en"); // 'en' for English, 'hi' for Hindi
+  const [language, setLanguage] = useState("en"); 
   const fadeAnim = useState(new Animated.Value(0))[0];
 
   const checkFraud = async () => {
@@ -115,7 +115,6 @@ const FraudDetectionScreen = () => {
         )}
       </ScrollView>
 
-      {/* Language Switcher */}
       <View style={styles.languageSwitcher}>
         <TouchableOpacity onPress={() => setLanguage("en")} style={language === "en" ? styles.activeLang : styles.langButton}>
           <FontAwesome5 name="language" size={14} color={language === "en" ? "black" : "gray"} />

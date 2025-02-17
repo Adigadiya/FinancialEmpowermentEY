@@ -12,7 +12,6 @@ const InvestmentScreen = () => {
     const [loading, setLoading] = useState(true);
     const currentLanguage = i18n.language;
 
-    // Fetch Investments from API
     const fetchInvestments = async () => {
         try {
             console.log("Fetching Investment Data...");
@@ -72,7 +71,6 @@ const InvestmentScreen = () => {
                 />
             )}
 
-            {/* 🌍 Language Switcher */}
             <View style={styles.languageSwitcher}>
                 <TouchableOpacity onPress={() => i18n.changeLanguage("en")} style={styles.langButton}>
                     <Text style={styles.langText}>🇬🇧 English</Text>

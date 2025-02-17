@@ -27,21 +27,21 @@ const Stack = createNativeStackNavigator();
 const PlannerNavigator=()=>(
   <Stack.Navigator>
      <Stack.Screen name='PlannerScreen' component={PlannerScreen} options={{ headerShown: false }} />
-    <Stack.Screen name="BudgetingCalculator" component={BudgetingCalculator} options={{ title: "Calculator",headerStyle: { backgroundColor: "#000" }, // Black header background
+    <Stack.Screen name="BudgetingCalculator" component={BudgetingCalculator} options={{ title: "Calculator",headerStyle: { backgroundColor: "#000" },
     headerTitleStyle: { color: "#FFF" }  }} />
   </Stack.Navigator>
 )
 const CommunityNavigator=()=>(
   <Stack.Navigator>
     <Stack.Screen name='CommunityScreen' component={CommunityScreen} options={{ headerShown: false }} />
-    <Stack.Screen name="PostDetails" component={PostDetailsScreen} options={{ title: "Discussion",headerStyle: { backgroundColor: "#000" }, // Black header background
+    <Stack.Screen name="PostDetails" component={PostDetailsScreen} options={{ title: "Discussion",headerStyle: { backgroundColor: "#000" }, 
     headerTitleStyle: { color: "#FFF" }  }} />
   </Stack.Navigator>
 );
 const LearnNavigator = () => (
   <Stack.Navigator>
     <Stack.Screen name="LearnScreen" component={LearnScreen} options={{ headerShown: false }} />
-    <Stack.Screen name="BlogDetailScreen" component={BlogDetailScreen} options={{ headerShown: true, title: "Blog",headerStyle: { backgroundColor: "#000" }, // Black header background
+    <Stack.Screen name="BlogDetailScreen" component={BlogDetailScreen} options={{ headerShown: true, title: "Blog",headerStyle: { backgroundColor: "#000" }, 
     headerTitleStyle: { color: "#FFF" }   }} />
   </Stack.Navigator>
 );
@@ -51,19 +51,19 @@ const AppNavigator = () => (
     <Stack.Screen name="Marketplace" component={MarketplaceScreen} options={{ headerShown: false }} />
     <Stack.Screen name="MySchemeScreen" component={MySchemeScreen} options={{ title: "Government Schemes", headerShown: true   }} /> 
     <Stack.Screen name="FraudReportScreen" component={FraudReportScreen} options={{ title: "Report Frauds", headerShown: true   }} /> 
-    <Stack.Screen name="InvestmentScreen" component={InvestmentScreen} options={{ title: "Investments", headerShown: true , headerStyle: { backgroundColor: "#000" }, // Black header background
+    <Stack.Screen name="InvestmentScreen" component={InvestmentScreen} options={{ title: "Investments", headerShown: true , headerStyle: { backgroundColor: "#000" },
     headerTitleStyle: { color: "#FFF" }} }/> 
-    <Stack.Screen name="HomeLoanScreen" component={HomeLoanScreen} options={{ title: "Home Loans" ,headerStyle: { backgroundColor: "#000" }, // Black header background
+    <Stack.Screen name="HomeLoanScreen" component={HomeLoanScreen} options={{ title: "Home Loans" ,headerStyle: { backgroundColor: "#000" }, 
     headerTitleStyle: { color: "#FFF" }}} />
-    <Stack.Screen name="EducationLoanScreen" component={EducationLoanScreen} options={{ title: "Education Loans", headerShown: true,headerStyle: { backgroundColor: "#000" }, // Black header background
+    <Stack.Screen name="EducationLoanScreen" component={EducationLoanScreen} options={{ title: "Education Loans", headerShown: true,headerStyle: { backgroundColor: "#000" }, 
     headerTitleStyle: { color: "#FFF" } }} /> 
-    <Stack.Screen name="FarmerLoanScreen" component={FarmerLoanScreen} options={{ title: "Farmer & Agriculture Loans" ,headerStyle: { backgroundColor: "#000" }, // Black header background
+    <Stack.Screen name="FarmerLoanScreen" component={FarmerLoanScreen} options={{ title: "Farmer & Agriculture Loans" ,headerStyle: { backgroundColor: "#000" }, 
     headerTitleStyle: { color: "#FFF" }}} />
-    <Stack.Screen name="InsuranceScreen" component={InsuranceScreen} options={{ title: "Insurance Plans",headerStyle: { backgroundColor: "#000" }, // Black header background
+    <Stack.Screen name="InsuranceScreen" component={InsuranceScreen} options={{ title: "Insurance Plans",headerStyle: { backgroundColor: "#000" }, 
     headerTitleStyle: { color: "#FFF" } }} />
-    <Stack.Screen name="BusinessLoanScreen" component={BusinessLoanScreen} options={{ title: "Business Loans" ,headerStyle: { backgroundColor: "#000" }, // Black header background
+    <Stack.Screen name="BusinessLoanScreen" component={BusinessLoanScreen} options={{ title: "Business Loans" ,headerStyle: { backgroundColor: "#000" }, 
     headerTitleStyle: { color: "#FFF" }}} />
-    <Stack.Screen name="FraudDetectionScreen" component={FraudDetectionScreen} options={{ title: "Fraud Detection" ,headerStyle: { backgroundColor: "#fff" }, // Black header background
+    <Stack.Screen name="FraudDetectionScreen" component={FraudDetectionScreen} options={{ title: "Fraud Detection" ,headerStyle: { backgroundColor: "#fff" }, 
     headerTitleStyle: { color: "#000" }}} />
     
   </Stack.Navigator>

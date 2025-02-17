@@ -65,7 +65,7 @@ export default function SpendPlannerScreen() {
   const addIncome = () => {
     if (newIncome.source && newIncome.amount) {
       setIncome([...income, { source: newIncome.source, amount: parseInt(newIncome.amount) }]);
-      setNewIncome({ source: "", amount: "" });  // Reset inputs after adding
+      setNewIncome({ source: "", amount: "" });  
     }
   };
 
@@ -269,11 +269,11 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 15,
-    backgroundColor: "#000", // Dark background
+    backgroundColor: "#000", 
   },
   showing:{
 width:100,
-position: "absolute",  // Enables manual positioning
+position: "absolute",  
 left: 200,     
   },
   logoContainer: {
@@ -289,13 +289,13 @@ left: 200,
     fontWeight: "bold",
     textAlign: "center",
     marginVertical: 15,
-    color: "#fff", // White text for contrast
+    color: "#fff", 
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
     marginVertical: 12,
-    color: "#fff", // White section titles
+    color: "#fff", 
   },
   input: {
     borderWidth: 1,
@@ -305,17 +305,17 @@ left: 200,
     marginBottom: 10,
     fontSize: 16,
     marginHorizontal: 10,
-    backgroundColor: "#333", // Dark input background
-    color: "#fff", // White text for input fields
+    backgroundColor: "#333", 
+    color: "#fff", 
   },
   addButton: {
-    backgroundColor: "#FFC107", // EY's signature yellow for add button
+    backgroundColor: "#FFC107", 
     padding: 12,
     borderRadius: 5,
     marginBottom: 20,
   },
   addButtonText: {
-    color: "black", // Black text on yellow button for better readability
+    color: "black", 
     textAlign: "center",
     fontSize: 16,
   },
@@ -327,7 +327,7 @@ left: 200,
   },
   expenseItem: {
     fontSize: 16,
-    color: "#fff", // White text for list items
+    color: "#fff", 
   },
   iconButton: {
     marginLeft: 10,
@@ -338,7 +338,7 @@ left: 200,
   },
   goalItem: {
     fontSize: 16,
-    color: "#fff", // White text for goal items
+    color: "#fff", 
   },
   progressBar: {
     marginVertical: 10,
@@ -347,20 +347,20 @@ left: 200,
     fontSize: 16,
     fontWeight: "bold",
     marginVertical: 12,
-    color: "#fff", // White text for remaining budget
+    color: "#fff", 
   },
   suggestionsText: {
     fontSize: 18,
     fontWeight: "bold",
     marginVertical: 12,
-    color: "#fff", // White text for suggestions heading
+    color: "#fff", 
   },
   suggestions: {
     fontSize: 16,
-    color: "#aaa", // Lighter color for suggestion text
+    color: "#aaa",
   },
   saveButton: {
-    backgroundColor: "#2196F3", // Blue button for save
+    backgroundColor: "#2196F3", 
     padding: 12,
     borderRadius: 5,
     marginTop: 20,

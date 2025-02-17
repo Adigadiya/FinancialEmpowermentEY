@@ -38,7 +38,7 @@ const LearnScreen = () => {
 
     return (
         <View style={styles.container}>
-            {/* Header with Logo */}
+         
             <View style={styles.header}>
                 <Image source={require("../assets/Ey.jpg")} style={styles.logo} />
             </View>
@@ -72,7 +72,6 @@ const LearnScreen = () => {
                                     </Text>
                                     
                                 
-      {/* Example YouTube video: Replace "dQw4w9WgXcQ" with your video ID */}
       <VideoPlayer videoId="DNYCgsyOAW4" />
 
     
@@ -89,7 +88,6 @@ const LearnScreen = () => {
                 />
             )}
 
-            {/* Language Switcher */}
             <View style={styles.languageSwitcher}>
                 <TouchableOpacity onPress={() => i18n.changeLanguage("en")} style={styles.langButton}>
                     <Text style={styles.langText}>🇬🇧 English</Text>
@@ -104,7 +102,7 @@ const LearnScreen = () => {
 
 const styles = StyleSheet.create({
     container: { flex: 1, padding: 20, backgroundColor: "#000" },
-    header: { flexDirection: "row", alignItems: "center",   justifyContent: "center",paddingVertical: 20,  // Adds spacing above and below the logo
+    header: { flexDirection: "row", alignItems: "center",   justifyContent: "center",paddingVertical: 20,
         marginTop: 20,  },
     logo: {     width: 100, 
         height: 50, 
