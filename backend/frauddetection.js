@@ -74,6 +74,11 @@ app.post("/check-fraud", async (req, res) => {
       messages: [{ role: "system", content: prompt }],
     });
 
+
+    console.log("OpenAI Response: /n", response);
+console.log("Choices:  /n", response.choices);
+console.log("Message Content: /n", response.choices[0]?.message?.content);
+
     const resultText = response.choices[0].message.content;
     const match = resultText.match(/Risk Score: (\d+).*?Status: (SAFE|SUSPICIOUS|SCAM).*?Reason: (.*)/s);
 

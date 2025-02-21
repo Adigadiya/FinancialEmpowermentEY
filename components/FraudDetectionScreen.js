@@ -30,11 +30,12 @@ const FraudDetectionScreen = () => {
     Keyboard.dismiss();
 
     try {
-      const response = await axios.post("https://dhansangini-backend-frauddetection.onrender.com/check-fraud", {
+      const response = await axios.post("http://192.168.60.131:8082/check-fraud", {
         schemeName,
         description,
       });
 
+      console.log("API Response:", response.data);
       setResult(response.data);
       fadeAnim.setValue(0);
       Animated.timing(fadeAnim, { toValue: 1, duration: 500, useNativeDriver: true }).start();
